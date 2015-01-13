@@ -1,0 +1,141 @@
+.bodyOfTank
+{ 
+	position: absolute;
+	height:50px; 
+	width:50px; 
+	background-color:red; 
+	border: solid #999 2px;
+	text-align: center;
+}
+.headOfTank
+{
+	position: relative;
+	left: 17px;
+	top: 17px;
+	border-radius: 13px;
+	background: red;
+	border: solid #000 1px;
+	width: 15px;
+	height: 15px;
+}
+.canionOfTank
+{
+	position: absolute;
+	left: -10px;
+	top: 22px;
+	background: red;
+	border: solid #000 1px;
+	width: 26px;
+	height: 5px;
+}
+
+.ball
+{
+	position: absolute;
+	left: -15px;
+	top: 22px;
+	width: 7px;
+	height: 7px;
+	background: orange;
+	border-radius: 5px;
+}
+
+.light
+{ 
+	height:3px; 
+	width:20px; 
+	background-color:#D9D9D9; 
+	/*opacity:0.2;*/
+}
+
+.lightOff
+{ 
+	height:3px; 
+	width:20px; 
+	background-color:#b3b3b3; 
+	/*opacity:0.2;*/
+}
+
+#court
+{
+	position: absolute;
+	left: 100px;
+	top: 101px;
+	width: 600px;
+	height: 500px;
+	background: #cccccc;
+	border: solid 1px black;
+}
+
+
+#headCourt
+{
+	position: absolute;
+	left: 100px;
+	top: 50px;
+	width: 600px;
+	height: 50px;
+	background: #cccccc;
+	border: solid 1px black;
+}
+
+#mines
+{
+	border: solid 1px black;
+	position: absolute;
+	left: 150px;
+	top: 15px;
+	background: black;
+	width: 50px;
+	height: 20px;
+	color: red;
+	text-align: right;
+}
+
+#minesText
+{
+	font-family: timeFont;
+	font-size: 20px;
+}
+
+#reset
+{
+	position: absolute;
+	left: 320px;
+	top: 14px;	
+	width: 50px;
+	height: 20px;		
+}
+
+#time
+{
+	border: solid 1px black;
+	position: absolute;
+	left: 550px;
+	top: 15px;
+	background: black;
+	width: 50px;
+	height: 20px;
+	color: red;
+	text-align: right;
+}
+
+@font-face {
+    font-family: timeFont;
+    src: url(Fonts/ds-digib.ttf);
+    font-weight: normal;
+}
+
+#timeText
+{
+	font-family: timeFont;
+	font-size: 20px;
+}
+
+#testClick
+{
+	position: absolute;
+	left: 0px;
+	height: 0px;
+	color: red;
+}

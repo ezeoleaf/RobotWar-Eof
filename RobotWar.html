@@ -1,0 +1,369 @@
+<!DOCTYPE html> 
+<html lang="es"> 
+<head> 
+	<title>RobotWar</title>
+	<script type='text/javascript' src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="jquery.timer.js" type="text/javascript"></script>
+	<link href="RobotWarStyle.css" rel="stylesheet" type="text/css" />
+</head>
+<script>
+posTank_x = 0;
+posTank_y = 0;
+speedTank = 4;
+speedBall = 2;
+keyLDown = 0;
+keyRDown = 0;
+keyUDown = 0;
+keyDDown = 0;
+keyRotateRight = 0;
+keyRotateLeft = 0;
+rotation = 0;
+cantOfShots = 0;
+shot = 0;
+ballPosition_x = 0;
+ballPosition_y = 0;
+count = 0;
+var vShot = [];
+var vShotPos = [];
+var vShotFlag = [];
+
+function newGame()
+{
+	keyDown = 0;
+	posTank_x = 100;
+	posTank_y = 100;
+	insertFirstRobot = '<div id="playerTank" class="bodyOfTank" style="left: '+posTank_x+'px; top: '+posTank_y+'px;"><div class="headOfTank" id="headPlayerTank"></div><div class="canionOfTank"></div></div>';
+	$('#court').html(insertFirstRobot);
+}
+
+/*
+Movetank recibe parametros segun si mueve a la derecha o izquierda, arriba o abajo
+1 - Izquierda
+2 - Derecha
+3 - Arriba
+4 - Abajo
+5 - Izquierda - Arriba
+6 - Izquierda - Abajo
+7 - Derecha - Arriba
+8 - Derecha - Abajo
+*/
+function moveTank(sideToMove)
+{
+	switch(sideToMove)
+	{
+		case 0:
+			posTank_x = posTank_x;
+			posTank_y = posTank_y;
+			break;
+		case 1:
+			if((posTank_x-speedTank) > 0){
+				posTank_x -= speedTank;
+			}
+			break;
+		case 2:
+			if((posTank_x+speedTank) < 548){
+				posTank_x += speedTank;
+			}
+			break;
+		case 3:
+			if((posTank_y-speedTank) > 0){
+				posTank_y -= speedTank;
+			}
+			break;
+		case 4:
+			if((posTank_y+speedTank) < 450){
+				posTank_y += speedTank;
+			}
+			break
+		case 5:
+			if((posTank_x-speedTank) > 0){
+				posTank_x -= speedTank;
+			}
+			if((posTank_y-speedTank) > 0){
+				posTank_y -= speedTank;
+			}
+			break;
+		case 6:
+			if((posTank_x-speedTank) > 0){
+				posTank_x -= speedTank;
+			}
+			if((posTank_y+speedTank) < 450){
+				posTank_y += speedTank;
+			}
+			break;
+		case 7:
+			if((posTank_x+speedTank) < 548){
+				posTank_x += speedTank;
+			}
+			if((posTank_y-speedTank) > 0){
+				posTank_y -= speedTank;
+			}
+			break;
+		case 8:
+			if((posTank_x+speedTank) < 548){
+				posTank_x += speedTank;
+			}
+			if((posTank_y+speedTank) < 450){
+				posTank_y += speedTank;
+			}
+			break;
+	}
+}
+
+function decodeSideToMove(sL, sR, sU, sD)
+{
+	if(sL == 1){
+		if(sU == 1)
+		{
+			return 5;
+		}
+		if(sD == 1)
+		{
+			return 6;
+		}
+		return 1;
+	}
+	if(sR == 1)
+	{
+		if(sU == 1)
+		{
+			return 7;
+		}
+		if(sD == 1)
+		{
+			return 8;
+		}
+		return 2;
+	}
+	if(sU == 1)
+	{
+		if(sL == 1)
+		{
+			return 5;
+		}
+		if(sR == 1)
+		{
+			return 7;
+		}
+		return 3;
+	}
+	if(sD == 1)
+	{
+		if(sL == 1)
+		{
+			return 6;
+		}
+		if(sR == 1)
+		{
+			return 8;
+		}
+		return 4;
+	}
+	if(sL == 0 && sR == 0 && sU == 0 && sD == 0)
+	{
+		return 0;
+	}
+}
+
+function rotateTank()
+{
+	if(keyRotateRight == 1)
+	{
+		rotation += 5;
+		$('#playerTank').css({'-webkit-transform' : 'rotate('+ rotation +'deg)',
+                 '-moz-transform' : 'rotate('+ rotation +'deg)',
+                 '-ms-transform' : 'rotate('+ rotation +'deg)',
+                 'transform' : 'rotate('+ rotation +'deg)'});
+		
+		if(rotation == 360)
+		{
+			rotation = 0;
+		}
+	}	
+	if(keyRotateLeft == 1)
+	{
+		rotation -= 5;
+		$('#playerTank').css({'-webkit-transform' : 'rotate('+ rotation +'deg)',
+                 '-moz-transform' : 'rotate('+ rotation +'deg)',
+                 '-ms-transform' : 'rotate('+ rotation +'deg)',
+                 'transform' : 'rotate('+ rotation +'deg)'});
+		
+		if(rotation == (-360))
+		{
+			rotation = 0;
+		}	
+	}
+}
+
+function moveShot()
+{
+	for(var i = 0; i < vShot.length; i++)
+	{
+		nameOfBall = '#ball'+(i+1).toString();
+		if(vShotFlag[i] == 1){
+			var ballPosition = $(nameOfBall).position();
+			ballPosition_x = ballPosition.left;
+			ballPosition_y = ballPosition.top;
+			vShotPos[i] = ballPosition_x.toString()+'/--/'+ballPosition_y.toString();
+			vShotFlag[i] = 0;
+		}
+		var decodeVShotPos = vShotPos[i].split('/--/');
+		newPosBall_x = parseInt(decodeVShotPos[0]) + speedBall;
+		newPosBall_y = parseInt(decodeVShotPos[1]) + speedBall;
+		$(nameOfBall).css('left', newPosBall_x);
+		$(nameOfBall).css('top', newPosBall_y);
+				
+		vShotPos[i] = newPosBall_x.toString()+'/--/'+newPosBall_y.toString();
+	}
+}
+
+$(document).ready(function(){
+
+	//Inicia los valores cuando se carga la pagina
+	newGame();
+	
+	//Inicia los timers, uno se encarga de imprimir el tiempo en segundos y el segundo de actualizar la cantidad de minas
+	var timer = $.timer(function (){
+		moveTank(decodeSideToMove(keyLDown,keyRDown,keyUDown,keyDDown));
+		if(keyRotateRight == 1 || keyRotateLeft == 1)
+		{
+			rotateTank();
+		}
+		if(vShot.length > 0)
+		{
+			moveShot();
+			count++;
+			if(count == 10)
+			{
+				
+			}
+		}
+		$('#playerTank').css('left',posTank_x);
+		$('#playerTank').css('top',posTank_y);
+	},20,true);
+	
+	
+	$('body').keydown(function() 
+	{
+		switch(event.which) {
+			//37 responde a la flecha hacia la izquierda
+			case 37:
+				if((posTank_x-speedTank) > 0){
+					keyLDown = 1;
+				}
+				else
+				{
+					keyLDown = 0;
+				}
+				break;
+			//39 responde a la flecha hacia la derecha
+			case 39:
+				if((posTank_x+speedTank) < 548){
+					keyRDown = 1;
+				}
+				else
+				{
+					keyRDown = 0;
+				}
+				break;
+			//38 responde a la flecha hacia arriba
+			case 38:
+				if((posTank_y-speedTank) > 0){
+					keyUDown = 1;
+				}
+				else
+				{
+					keyUDown = 0;
+				}
+				break;
+			//40 responde a la flecha hacia abajo
+			case 40:
+				if((posTank_y+speedTank) < 450){
+					keyDDown = 1;
+				}
+				else
+				{
+					keyDDown = 0;
+				}
+				break;
+			//90 responde a 'z', gira el tanque
+			case 90:
+				keyRotateRight = 1;
+				break;
+			//88 responde a 'x', gira el tanque
+			case 88:
+				keyRotateLeft = 1;
+				break;
+			// 32 responde a la tecla espacio que dispara
+			case 32:
+				cantOfShots++;
+				prevHtml = $('#playerTank').html();
+				positionPlayerTank = $('#playerTank').position();
+				$('#playerTank').html(prevHtml + '<div id="ball'+cantOfShots+'" class="ball"></div>');
+				vShot.push(cantOfShots);
+				vShotFlag.push(1);				
+				//shot = 1;
+				break;			
+		}
+	});
+	$('body').keyup(function() 
+	{
+		switch(event.which) {
+			// 37 responde a la flecha izquierda que mueve la barra del jugador
+			case 37:
+				keyLDown = 0;
+				break;
+			// 39 responde a la flecha derecha que mueve la barra del jugador
+			case 39:
+				keyRDown = 0;
+				break;
+			// 38 responde a la flecha para arriba
+			case 38:
+				keyUDown = 0;
+				break;
+			// 40 responde a la flecha para abajo
+			case 40:
+				keyDDown = 0;
+				break;
+			//90 responde a 'z', gira el tanque
+			case 90:
+				keyRotateRight = 0;
+				break;
+			//88 responde a 'x', gira el tanque
+			case 88:
+				keyRotateLeft = 0;
+				break;
+			// 32 responde a la tecla espacio que da inicio al juego
+			case 32:
+			/*
+				if(startControl == 0)
+				{
+					controlTop = 0;
+					startControl = 1;
+					controlStartSide((1 + Math.floor(Math.random() * 2)));
+					speedBall_x = 1 + Math.floor(Math.random() * 3);
+					speedBall_y = 1 + Math.floor(Math.random() * 3);
+				}
+				break;
+			*/
+		}
+	});
+	
+});
+</script>
+<body>
+	<div id="headCourt">
+		<!--div id="mines">
+			<span id="minesText"></span>
+		</div>
+		<div id="reset">
+			<input type="button" id="buttonReset" name="reset" value=""/>
+		</div>
+		<div id="time">
+			<span id="timeText"></span>
+		</div-->
+	</div>
+	<div id="court">		
+	</div>	
+</body> 
+</html>

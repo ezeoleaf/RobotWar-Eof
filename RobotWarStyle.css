@@ -63,8 +63,10 @@
 	top: 101px;
 	width: 600px;
 	height: 500px;
-	background: #cccccc;
+	/*background: #cccccc;*/
 	border: solid 1px black;
+	background-image: url("Img/Military Background 1.jpg");
+	background-size: 100% 100%;
 }
 
 

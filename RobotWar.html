@@ -232,11 +232,6 @@ $(document).ready(function(){
 		if(vShot.length > 0)
 		{
 			moveShot();
-			count++;
-			if(count == 10)
-			{
-				
-			}
 		}
 		$('#playerTank').css('left',posTank_x);
 		$('#playerTank').css('top',posTank_y);
@@ -297,9 +292,12 @@ $(document).ready(function(){
 			// 32 responde a la tecla espacio que dispara
 			case 32:
 				cantOfShots++;
-				prevHtml = $('#playerTank').html();
+				prevHtml = $('#court').html();
 				positionPlayerTank = $('#playerTank').position();
-				$('#playerTank').html(prevHtml + '<div id="ball'+cantOfShots+'" class="ball"></div>');
+				posTankBall_x = positionPlayerTank.left - 15;
+				posTankBall_y = positionPlayerTank.top + 20;
+				ballString = '<div id="ball'+cantOfShots+'" class="ball" style="left: '+posTankBall_x+'px;top: '+posTankBall_y+'px;"></div>';
+				$('#court').html(prevHtml + ballString);
 				vShot.push(cantOfShots);
 				vShotFlag.push(1);				
 				//shot = 1;

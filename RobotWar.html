@@ -23,16 +23,20 @@ shot = 0;
 ballPosition_x = 0;
 ballPosition_y = 0;
 count = 0;
+
+
 var vShot = [];
 var vShotPos = [];
 var vShotFlag = [];
+var vShotSideOfMovement = [];
 
 function newGame()
 {
 	keyDown = 0;
 	posTank_x = 100;
 	posTank_y = 100;
-	insertFirstRobot = '<div id="playerTank" class="bodyOfTank" style="left: '+posTank_x+'px; top: '+posTank_y+'px;"><div class="headOfTank" id="headPlayerTank"></div><div class="canionOfTank"></div></div>';
+	//left: 116px; top: 100px; -webkit-transform: rotate(180deg); transform: rotate(180deg);
+	insertFirstRobot = '<div id="playerTank" class="bodyOfTank" style="left: '+posTank_x+'px; top: '+posTank_y+'px; -webkit-transform: rotate('+rotation+'deg); transform: rotate('+rotation+'deg);"><div class="headOfTank" id="headPlayerTank"></div><div class="canionOfTank"></div></div>';
 	$('#court').html(insertFirstRobot);
 }
 
@@ -195,25 +199,409 @@ function rotateTank()
 	}
 }
 
+function getSpeedShot(sideOfMovement)
+{
+	switch(sideOfMovement)
+	{
+		case 1:
+			speedOfShot = (speedBall *(-1))+'/--/'+0;
+			break
+		case 2:
+			speedOfShot = (speedBall)+'/--/'+0;
+			break
+		case 3:
+			speedOfShot = (0)+'/--/'+(speedBall * (-1));
+			break
+		case 4:
+			speedOfShot = (0)+'/--/'+(speedBall);
+			break
+		case 5:
+			speedOfShot = (speedBall * (-1))+'/--/'+(speedBall * (-1));
+			break
+		case 6:
+			speedOfShot = (speedBall * (-1))+'/--/'+(speedBall);
+			break
+		case 7:
+			speedOfShot = (speedBall)+'/--/'+(speedBall * (-1));
+			break
+		case 8:
+			speedOfShot = (speedBall)+'/--/'+(speedBall);
+			break
+	}
+	return speedOfShot;
+}
+
 function moveShot()
 {
 	for(var i = 0; i < vShot.length; i++)
 	{
-		nameOfBall = '#ball'+(i+1).toString();
-		if(vShotFlag[i] == 1){
-			var ballPosition = $(nameOfBall).position();
-			ballPosition_x = ballPosition.left;
-			ballPosition_y = ballPosition.top;
-			vShotPos[i] = ballPosition_x.toString()+'/--/'+ballPosition_y.toString();
-			vShotFlag[i] = 0;
+		nameOfBall = '#ball'+(vShot[i]).toString();
+		
+		var ballPosition = $(nameOfBall).position();
+		ballPosition_x = ballPosition.left;
+		ballPosition_y = ballPosition.top;
+		
+		speedOfShot = getSpeedShot(vShotSideOfMovement[i]);
+		vSpeedOfShot = speedOfShot.split('/--/');
+		
+		newPosBall_x = parseInt(ballPosition_x) + parseInt(vSpeedOfShot[0]);
+		newPosBall_y = parseInt(ballPosition_y) + parseInt(vSpeedOfShot[1]);
+		
+		if((newPosBall_x > 0 && newPosBall_x < 548) && ((newPosBall_y > 0) && (newPosBall_y < 450)))
+		{
+			$(nameOfBall).css('left', newPosBall_x);
+			$(nameOfBall).css('top', newPosBall_y);
 		}
-		var decodeVShotPos = vShotPos[i].split('/--/');
-		newPosBall_x = parseInt(decodeVShotPos[0]) + speedBall;
-		newPosBall_y = parseInt(decodeVShotPos[1]) + speedBall;
-		$(nameOfBall).css('left', newPosBall_x);
-		$(nameOfBall).css('top', newPosBall_y);
-				
-		vShotPos[i] = newPosBall_x.toString()+'/--/'+newPosBall_y.toString();
+		else
+		{
+			$(nameOfBall).fadeOut();			
+			vShot.splice(i,1);
+			vShotSideOfMovement.splice(i,1);
+		}		
+	}
+}
+
+function getLeftAndTop(degree)
+{
+	switch(degree)
+	{
+		case 0:
+		case 360:
+			leftAndTop = (-15)+"/--/"+(23);
+			break;
+		case 5:
+		case -355:
+			leftAndTop = (-11)+"/--/"+(22);
+			break;
+		case 10:
+		case -350:
+			leftAndTop = (-9)+"/--/"+(21);
+			break;
+		case 15:
+		case -345:
+			leftAndTop = (-7)+"/--/"+(20);
+			break;
+		case 20:
+		case -340:
+			leftAndTop = (-3)+"/--/"+(19);
+			break;
+		case 25:
+		case -335:
+			leftAndTop = (-1)+"/--/"+(17);
+			break;
+		case 30:
+		case -330:
+			leftAndTop = (1)+"/--/"+(15);
+			break;
+		case 35:
+		case -325:
+			leftAndTop = (4)+"/--/"+(14);
+			break;
+		case 40:
+		case -320:
+			leftAndTop = (8)+"/--/"+(13);
+			break;
+		case 45:
+		case -315:
+			leftAndTop = (9)+"/--/"+(10);
+			break;
+		case 50:
+		case -310:
+			leftAndTop = (12)+"/--/"+(9);
+			break;
+		case 55:
+		case -305:
+			leftAndTop = (15)+"/--/"+(7);
+			break;
+		case 60:
+		case -300:
+			leftAndTop = (16)+"/--/"+(4);
+			break;
+		case 65:
+		case -295:
+			leftAndTop = (17)+"/--/"+(1);
+			break;
+		case 70:
+		case -290:
+			leftAndTop = (18)+"/--/"+(-2);
+			break;
+		case 75:
+		case -285:
+			leftAndTop = (20)+"/--/"+(-4);
+			break;
+		case 80:
+		case -280:
+			leftAndTop = (21)+"/--/"+(-7);
+			break;
+		case 85:
+		case -275:
+			leftAndTop = (22)+"/--/"+(-11);
+			break;
+		case 90:
+		case -270:
+			leftAndTop = (23)+"/--/"+(-15);
+			break;
+		case 95:
+		case -265:
+			leftAndTop = (28)+"/--/"+(-11);
+			break;
+		case 100:
+		case -260:
+			leftAndTop = (33)+"/--/"+(-6);
+			break;
+		case 105:
+		case -255:
+			leftAndTop = (38)+"/--/"+(-4);
+			break;
+		case 110:
+		case -250:
+			leftAndTop = (43)+"/--/"+(-2);
+			break;
+		case 115:
+		case -245:
+			leftAndTop = (47)+"/--/"+(0);
+			break;
+		case 120:
+		case -240:
+			leftAndTop = (51)+"/--/"+(2);
+			break;
+		case 125:
+		case -235:
+			leftAndTop = (55)+"/--/"+(4);
+			break;
+		case 130:
+		case -230:
+			leftAndTop = (57)+"/--/"+(7);
+			break;
+		case 135:
+		case -225:
+			leftAndTop = (59)+"/--/"+(9);
+			break;
+		case 140:
+		case -220:
+			leftAndTop = (61)+"/--/"+(12);
+			break;
+		case 145:
+		case -215:
+			leftAndTop = (63)+"/--/"+(14);
+			break;
+		case 150:
+		case -210:
+			leftAndTop = (63)+"/--/"+(16);
+			break;
+		case 155:
+		case -205:
+			leftAndTop = (64)+"/--/"+(17);
+			break;
+		case 160:
+		case -200:
+			leftAndTop = (65)+"/--/"+(19);
+			break;
+		case 165:
+		case -195:
+			leftAndTop = (64)+"/--/"+(19);
+			break;
+		case 170:
+		case -190:
+			leftAndTop = (62)+"/--/"+(21);
+			break;
+		case 175:
+		case -185:
+			leftAndTop = (61)+"/--/"+(22);
+			break;
+		case 180:
+		case -180:
+			leftAndTop = (60)+"/--/"+(23);
+			break;
+		//case -5 || 355:
+		case -5:
+		case 355:
+			leftAndTop = (-11)+"/--/"+(29);
+			break;
+		case -10:
+		case 350:
+			leftAndTop = (-8)+"/--/"+(35);
+			break;
+		case -15:
+		case 345:
+			leftAndTop = (-5)+"/--/"+(40);
+			break;
+		case -20:
+		case 340:
+			leftAndTop = (-2)+"/--/"+(44);
+			break;
+		case -25:
+		case 335:
+			leftAndTop = (0)+"/--/"+(48);
+			break;
+		case -30:
+		case 330:
+			leftAndTop = (3)+"/--/"+(52);
+			break;
+		case -35:
+		case 325:
+			leftAndTop = (5)+"/--/"+(56);
+			break;
+		case -40:
+		case 320:
+			leftAndTop = (8)+"/--/"+(58);
+			break;
+		case -45:
+		case 315:
+			leftAndTop = (10)+"/--/"+(60);
+			break;
+		case -50:
+		case 310:
+			leftAndTop = (11)+"/--/"+(63);
+			break;
+		case -55:
+		case 305:
+			leftAndTop = (14)+"/--/"+(65);
+			break;
+		case -60:
+		case 300:
+			leftAndTop = (16)+"/--/"+(65);
+			break;
+		case -65:
+		case 295:
+			leftAndTop = (18)+"/--/"+(64);
+			break;
+		case -70:
+		case 290:
+			leftAndTop = (20)+"/--/"+(64);
+			break;
+		case -75:
+		case 285:
+			leftAndTop = (21)+"/--/"+(63);
+			break;
+		case -80:
+		case 280:
+			leftAndTop = (22)+"/--/"+(62);
+			break;
+		case -85:
+		case 275:
+			leftAndTop = (23)+"/--/"+(60);
+			break;
+		case -90:
+		case 270:
+			leftAndTop = (24)+"/--/"+(60);
+			break;
+		case -95:
+		case 265:
+			leftAndTop = (29)+"/--/"+(61);
+			break;
+		case -100:
+		case 260:
+			leftAndTop = (34)+"/--/"+(62);
+			break;
+		case -105:
+		case 255:
+			leftAndTop = (39)+"/--/"+(63);
+			break;
+		case -110:
+		case 250:
+			leftAndTop = (44)+"/--/"+(64);
+			break;
+		case -115:
+		case 245:
+			leftAndTop = (48)+"/--/"+(64);
+			break;
+		case -120:
+		case 240:
+			leftAndTop = (52)+"/--/"+(65);
+			break;
+		case -125:
+		case 235:
+			leftAndTop = (55)+"/--/"+(63);
+			break;
+		case -130:
+		case 230:
+			leftAndTop = (57)+"/--/"+(60);
+			break;
+		case -135:
+		case 225:
+			leftAndTop = (60)+"/--/"+(59);
+			break;
+		case -140:
+		case 220:
+			leftAndTop = (62)+"/--/"+(57);
+			break;
+		case -145:
+		case 215:
+			leftAndTop = (63)+"/--/"+(54);
+			break;
+		case -150:
+		case 210:
+			leftAndTop = (63)+"/--/"+(50);
+			break;
+		case -155:
+		case 205:
+			leftAndTop = (64)+"/--/"+(47);
+			break;
+		case -160:
+		case 200:
+			leftAndTop = (65)+"/--/"+(43);
+			break;
+		case -165:
+		case 195:
+			leftAndTop = (63)+"/--/"+(38);
+			break;
+		case -170:
+		case 190:
+			leftAndTop = (61)+"/--/"+(33);
+			break;
+		case -175:
+		case 185:
+			leftAndTop = (59)+"/--/"+(28);
+			break;		
+	}
+	return leftAndTop;
+}
+
+/*
+SideOfMovement va a indicar la direccion del shot
+1 - Izquierda
+2 - Derecha
+3 - Arriba
+4 - Abajo
+5 - Izquierda - Arriba
+6 - Izquierda - Abajo
+7 - Derecha - Arriba
+8 - Derecha - Abajo
+*/
+function getSideOfMovement(degree)
+{
+	if(degree == 0 || degree == 360 || degree == (-360))
+	{
+		return 1;
+	}
+	if(degree == 180 || degree == (-180))
+	{
+		return 2;
+	}
+	if(degree == 90 || degree == (-270))
+	{
+		return 3;
+	}
+	if(degree == 270 || degree == (-90))
+	{
+		return 4;
+	}
+	if((degree > 0 && degree < 90) || (degree > (-360) && degree < (-270)))
+	{
+		return 5;
+	}
+	if((degree > 270 && degree < 360) || (degree < 0 && degree > (-90)))
+	{
+		return 6;
+	}
+	if((degree > 90 && degree < 180) || (degree > (-270) && degree < (-180)))
+	{
+		return 7;
+	}
+	if((degree > 180 && degree < 270) || (degree < (-90) && degree > (-180)))
+	{
+		return 8;
 	}
 }
 
@@ -294,14 +682,16 @@ $(document).ready(function(){
 				cantOfShots++;
 				prevHtml = $('#court').html();
 				positionPlayerTank = $('#playerTank').position();
-				posTankBall_x = positionPlayerTank.left - 15;
-				posTankBall_y = positionPlayerTank.top + 20;
+				//Agregar la aparicion del shot segun los grados
+				posTankBall = getLeftAndTop(rotation);
+				var vPosTankBall = posTankBall.split('/--/');
+				posTankBall_x = positionPlayerTank.left + parseInt(vPosTankBall[0]);
+				posTankBall_y = positionPlayerTank.top + parseInt(vPosTankBall[1]);
 				ballString = '<div id="ball'+cantOfShots+'" class="ball" style="left: '+posTankBall_x+'px;top: '+posTankBall_y+'px;"></div>';
 				$('#court').html(prevHtml + ballString);
 				vShot.push(cantOfShots);
-				vShotFlag.push(1);				
-				//shot = 1;
-				break;			
+				vShotSideOfMovement.push(getSideOfMovement(rotation));
+				break;
 		}
 	});
 	$('body').keyup(function() 
@@ -348,6 +738,7 @@ $(document).ready(function(){
 	});
 	
 });
+rotation = -5;
 </script>
 <body>
 	<div id="headCourt">

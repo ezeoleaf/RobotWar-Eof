@@ -10,6 +10,8 @@
 posTank_x = 0;
 posTank_y = 0;
 speedTank = 4;
+speedTank_x = 4;
+speedTank_y = 4;
 speedBall = 4;
 keyLDown = 0;
 keyRDown = 0;
@@ -23,6 +25,7 @@ shot = 0;
 ballPosition_x = 0;
 ballPosition_y = 0;
 count = 0;
+keyPressed = 0;
 
 
 var vShot = [];
@@ -753,6 +756,496 @@ function getSideOfMovement(degree)
 	}
 }
 
+function sideMoveTankControl()
+{
+	/*
+	if((rotation > 0 && rotation < 90) || (rotation > (-360) && rotation < (-270)))
+	{
+		keyLDown = 1;
+		keyUDown = 1;
+		keyRDown = 0;
+		keyDDown = 0;
+	}
+	if((rotation == 90) || (rotation == (-270)))
+	{
+		keyLDown = 0;
+		keyUDown = 1;
+		keyRDown = 0;
+		keyDDown = 0;	
+	}
+	if((rotation > 90 && rotation < 180) || (rotation > (-270) && rotation < (-180)))
+	{
+		keyLDown = 0;
+		keyUDown = 1;
+		keyRDown = 1;
+		keyDDown = 0;
+	}
+	if((rotation == 180) || (rotation == (-180)))
+	{
+		keyLDown = 0;
+		keyUDown = 0;
+		keyRDown = 1;
+		keyDDown = 0;
+	}
+	if((rotation > 180 && rotation < 270) || (rotation > (-180) && rotation < (-90)))
+	{
+		keyLDown = 0;
+		keyUDown = 0;
+		keyRDown = 1;
+		keyDDown = 1;
+	}
+	if((rotation == 270) || (rotation == (-90)))
+	{
+		keyLDown = 0;
+		keyUDown = 0;
+		keyRDown = 0;
+		keyDDown = 1;
+	}
+	if((rotation > 270 && rotation < 360) || (rotation > (-90) && rotation < 0))
+	{
+		keyLDown = 1;
+		keyUDown = 0;
+		keyRDown = 0;
+		keyDDown = 1;
+	}
+	if((rotation == 0) || (rotation == 360) || (rotation == (-360)))
+	{
+		keyLDown = 1;
+		keyUDown = 0;
+		keyRDown = 0;
+		keyDDown = 0;
+	}
+	*/
+	switch(degree)
+	{
+		case 0:
+		case 360:
+		//Cambiar speedTank por postank
+			speedTank_x = (speedTank * (-1));
+			speedTank_y = (0);
+			break;
+		case 5:
+		case -355:
+			speedTank_x = (speedTank * (-1));
+			speedTank_y = ((speedTank - 3) * (-1));
+			break;
+		case 10:
+		case -350:
+			speedTank_x = (speedTank * (-1));
+			speedTank_y = ((speedTank - 3) * (-1));
+			break;
+		case 15:
+		case -345:
+			speedTank_x = (speedTank * (-1));
+			speedTank_y = ((speedTank - 2) * (-1));
+			break;
+		case 20:
+		case -340:
+			speedTank_x = (speedTank * (-1));
+			speedTank_y = ((speedTank - 2) * (-1));
+			break;
+		case 25:
+		case -335:
+			speedTank_x = (speedTank * (-1));
+			speedTank_y = ((speedTank - 2) * (-1));
+			break;
+		case 30:
+		case -330:
+			speedTank_x = (speedTank * (-1));
+			speedTank_y = ((speedTank - 2) * (-1));
+			break;
+		case 35:
+		case -325:
+			speedTank_x = (speedTank * (-1));
+			speedTank_y = ((speedTank - 1) * (-1));
+			break;
+		case 40:
+		case -320:
+			speedTank_x = (speedTank * (-1));
+			speedTank_y = ((speedTank - 1) * (-1));
+			break;
+		case 45:
+		case -315:
+			speedTank_x = (speedTank * (-1));
+			speedTank_y = (speedTank * (-1));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case 50:
+		case -310://Seguir desde aca
+			leftAndTop = (12)+"/--/"+(9);
+			speedToAdd = ((speedBall - 1) * (-1))+'/--/'+(speedBall * (-1));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case 55:
+		case -305:
+			leftAndTop = (15)+"/--/"+(7);
+			speedToAdd = ((speedBall - 1) * (-1))+'/--/'+(speedBall * (-1));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case 60:
+		case -300:
+			leftAndTop = (16)+"/--/"+(4);
+			speedToAdd = ((speedBall - 2) * (-1))+'/--/'+(speedBall * (-1));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case 65:
+		case -295:
+			leftAndTop = (17)+"/--/"+(1);
+			speedToAdd = ((speedBall - 2) * (-1))+'/--/'+(speedBall * (-1));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case 70:
+		case -290:
+			leftAndTop = (18)+"/--/"+(-2);
+			speedToAdd = ((speedBall - 2) * (-1))+'/--/'+(speedBall * (-1));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case 75:
+		case -285:
+			leftAndTop = (20)+"/--/"+(-4);
+			speedToAdd = ((speedBall - 2) * (-1))+'/--/'+(speedBall * (-1));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case 80:
+		case -280:
+			leftAndTop = (21)+"/--/"+(-7);
+			speedToAdd = ((speedBall - 3) * (-1))+'/--/'+(speedBall * (-1));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case 85:
+		case -275:
+			leftAndTop = (22)+"/--/"+(-11);
+			speedToAdd = ((speedBall - 3) * (-1))+'/--/'+(speedBall * (-1));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case 90:
+		case -270:
+			leftAndTop = (23)+"/--/"+(-15);
+			speedToAdd = (0)+'/--/'+(speedBall * (-1));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case 95:
+		case -265:
+			leftAndTop = (28)+"/--/"+(-11);			
+			speedToAdd = ((speedBall - 3))+'/--/'+(speedBall * (-1));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case 100:
+		case -260:
+			leftAndTop = (33)+"/--/"+(-6);
+			speedToAdd = ((speedBall - 3))+'/--/'+(speedBall * (-1));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case 105:
+		case -255:
+			leftAndTop = (38)+"/--/"+(-4);
+			speedToAdd = ((speedBall - 2))+'/--/'+(speedBall * (-1));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case 110:
+		case -250:
+			leftAndTop = (43)+"/--/"+(-2);
+			speedToAdd = ((speedBall - 2))+'/--/'+(speedBall * (-1));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case 115:
+		case -245:
+			leftAndTop = (47)+"/--/"+(0);
+			speedToAdd = ((speedBall - 2))+'/--/'+(speedBall * (-1));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case 120:
+		case -240:
+			leftAndTop = (51)+"/--/"+(2);
+			speedToAdd = ((speedBall - 2))+'/--/'+(speedBall * (-1));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case 125:
+		case -235:
+			leftAndTop = (55)+"/--/"+(4);
+			speedToAdd = ((speedBall - 1))+'/--/'+(speedBall * (-1));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case 130:
+		case -230:
+			leftAndTop = (57)+"/--/"+(7);
+			speedToAdd = ((speedBall - 1))+'/--/'+(speedBall * (-1));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case 135:
+		case -225:
+			leftAndTop = (59)+"/--/"+(9);
+			speedToAdd = ((speedBall))+'/--/'+(speedBall * (-1));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case 140:
+		case -220:
+			leftAndTop = (61)+"/--/"+(12);
+			speedToAdd = ((speedBall))+'/--/'+((speedBall - 1) * (-1));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case 145:
+		case -215:
+			leftAndTop = (63)+"/--/"+(14);
+			speedToAdd = ((speedBall))+'/--/'+((speedBall - 1) * (-1));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case 150:
+		case -210:
+			leftAndTop = (63)+"/--/"+(16);
+			speedToAdd = ((speedBall))+'/--/'+((speedBall - 2) * (-1));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case 155:
+		case -205:
+			leftAndTop = (64)+"/--/"+(17);
+			speedToAdd = ((speedBall))+'/--/'+((speedBall - 2) * (-1));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case 160:
+		case -200:
+			leftAndTop = (65)+"/--/"+(19);
+			speedToAdd = ((speedBall))+'/--/'+((speedBall - 2) * (-1));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case 165:
+		case -195:
+			leftAndTop = (64)+"/--/"+(19);
+			speedToAdd = ((speedBall))+'/--/'+((speedBall - 2) * (-1));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case 170:
+		case -190:
+			leftAndTop = (62)+"/--/"+(21);
+			speedToAdd = ((speedBall))+'/--/'+((speedBall - 3) * (-1));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case 175:
+		case -185:
+			leftAndTop = (61)+"/--/"+(22);
+			speedToAdd = ((speedBall))+'/--/'+((speedBall - 3) * (-1));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case 180:
+		case -180:
+			leftAndTop = (60)+"/--/"+(23);
+			speedToAdd = ((speedBall))+'/--/'+(0);
+			vShotSpeed.push(speedToAdd);
+			break;
+		//case -5 || 355:
+		case -5:
+		case 355:
+			leftAndTop = (-11)+"/--/"+(29);
+			speedToAdd = ((speedBall) * (-1))+'/--/'+((speedBall - 3));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -10:
+		case 350:
+			leftAndTop = (-8)+"/--/"+(35);
+			speedToAdd = ((speedBall) * (-1))+'/--/'+((speedBall - 3));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -15:
+		case 345:
+			leftAndTop = (-5)+"/--/"+(40);
+			speedToAdd = ((speedBall) * (-1))+'/--/'+((speedBall - 2));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -20:
+		case 340:
+			leftAndTop = (-2)+"/--/"+(44);
+			speedToAdd = ((speedBall) * (-1))+'/--/'+((speedBall - 2));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -25:
+		case 335:
+			leftAndTop = (0)+"/--/"+(48);
+			speedToAdd = ((speedBall) * (-1))+'/--/'+((speedBall - 2));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -30:
+		case 330:
+			leftAndTop = (3)+"/--/"+(52);
+			speedToAdd = ((speedBall) * (-1))+'/--/'+((speedBall - 2));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -35:
+		case 325:
+			leftAndTop = (5)+"/--/"+(56);
+			speedToAdd = ((speedBall) * (-1))+'/--/'+((speedBall - 1));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -40:
+		case 320:
+			leftAndTop = (8)+"/--/"+(58);
+			speedToAdd = ((speedBall) * (-1))+'/--/'+((speedBall - 1));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -45:
+		case 315:
+			leftAndTop = (10)+"/--/"+(60);
+			speedToAdd = ((speedBall) * (-1))+'/--/'+((speedBall));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -50:
+		case 310:
+			leftAndTop = (11)+"/--/"+(63);
+			speedToAdd = ((speedBall - 1) * (-1))+'/--/'+((speedBall));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -55:
+		case 305:
+			leftAndTop = (14)+"/--/"+(65);
+			speedToAdd = ((speedBall - 1) * (-1))+'/--/'+((speedBall));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -60:
+		case 300:
+			leftAndTop = (16)+"/--/"+(65);
+			speedToAdd = ((speedBall - 2) * (-1))+'/--/'+((speedBall));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -65:
+		case 295:
+			leftAndTop = (18)+"/--/"+(64);
+			speedToAdd = ((speedBall - 2) * (-1))+'/--/'+((speedBall));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -70:
+		case 290:
+			leftAndTop = (20)+"/--/"+(64);
+			speedToAdd = ((speedBall - 2) * (-1))+'/--/'+((speedBall));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -75:
+		case 285:
+			leftAndTop = (21)+"/--/"+(63);
+			speedToAdd = ((speedBall - 2) * (-1))+'/--/'+((speedBall));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -80:
+		case 280:
+			leftAndTop = (22)+"/--/"+(62);
+			speedToAdd = ((speedBall - 3) * (-1))+'/--/'+((speedBall));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -85:
+		case 275:
+			leftAndTop = (23)+"/--/"+(60);
+			speedToAdd = ((speedBall - 3) * (-1))+'/--/'+((speedBall));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -90:
+		case 270:
+			leftAndTop = (24)+"/--/"+(60);
+			speedToAdd = (0)+'/--/'+((speedBall));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -95:
+		case 265:
+			leftAndTop = (29)+"/--/"+(61);
+			speedToAdd = ((speedBall - 3))+'/--/'+((speedBall));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -100:
+		case 260:
+			leftAndTop = (34)+"/--/"+(62);
+			speedToAdd = ((speedBall - 3))+'/--/'+((speedBall));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -105:
+		case 255:
+			leftAndTop = (39)+"/--/"+(63);
+			speedToAdd = ((speedBall - 2))+'/--/'+((speedBall));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -110:
+		case 250:
+			leftAndTop = (44)+"/--/"+(64);
+			speedToAdd = ((speedBall - 2))+'/--/'+((speedBall));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -115:
+		case 245:
+			leftAndTop = (48)+"/--/"+(64);
+			speedToAdd = ((speedBall - 2))+'/--/'+((speedBall));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -120:
+		case 240:
+			leftAndTop = (52)+"/--/"+(65);
+			speedToAdd = ((speedBall - 2))+'/--/'+((speedBall));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -125:
+		case 235:
+			leftAndTop = (55)+"/--/"+(63);
+			speedToAdd = ((speedBall - 1))+'/--/'+((speedBall));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -130:
+		case 230:
+			leftAndTop = (57)+"/--/"+(60);
+			speedToAdd = ((speedBall - 1))+'/--/'+((speedBall));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -135:
+		case 225:
+			leftAndTop = (60)+"/--/"+(59);
+			speedToAdd = ((speedBall))+'/--/'+((speedBall));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -140:
+		case 220:
+			leftAndTop = (62)+"/--/"+(57);
+			speedToAdd = ((speedBall))+'/--/'+((speedBall - 1));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -145:
+		case 215:
+			leftAndTop = (63)+"/--/"+(54);
+			speedToAdd = ((speedBall))+'/--/'+((speedBall - 1));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -150:
+		case 210:
+			leftAndTop = (63)+"/--/"+(50);
+			speedToAdd = ((speedBall))+'/--/'+((speedBall - 2));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -155:
+		case 205:
+			leftAndTop = (64)+"/--/"+(47);
+			speedToAdd = ((speedBall))+'/--/'+((speedBall - 2));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -160:
+		case 200:
+			leftAndTop = (65)+"/--/"+(43);
+			speedToAdd = ((speedBall))+'/--/'+((speedBall - 2));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -165:
+		case 195:
+			leftAndTop = (63)+"/--/"+(38);
+			speedToAdd = ((speedBall))+'/--/'+((speedBall - 2));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -170:
+		case 190:
+			leftAndTop = (61)+"/--/"+(33);
+			speedToAdd = ((speedBall))+'/--/'+((speedBall - 3));
+			vShotSpeed.push(speedToAdd);
+			break;
+		case -175:
+		case 185:
+			leftAndTop = (59)+"/--/"+(28);
+			speedToAdd = ((speedBall))+'/--/'+((speedBall - 3));
+			vShotSpeed.push(speedToAdd);
+			break;		
+	}
+}
+
 $(document).ready(function(){
 
 	//Inicia los valores cuando se carga la pagina
@@ -760,6 +1253,10 @@ $(document).ready(function(){
 	
 	//Inicia los timers, uno se encarga de imprimir el tiempo en segundos y el segundo de actualizar la cantidad de minas
 	var timer = $.timer(function (){
+		if(keyPressed == 1)
+		{
+			sideMoveTankControl();
+		}
 		moveTank(decodeSideToMove(keyLDown,keyRDown,keyUDown,keyDDown));
 		if(keyRotateRight == 1 || keyRotateLeft == 1)
 		{
@@ -777,6 +1274,7 @@ $(document).ready(function(){
 	$('body').keydown(function() 
 	{
 		switch(event.which) {
+			/*
 			//37 responde a la flecha hacia la izquierda
 			case 37:
 				if((posTank_x-speedTank) > 0){
@@ -825,6 +1323,30 @@ $(document).ready(function(){
 			case 88:
 				keyRotateLeft = 1;
 				break;
+			*/
+			//Prueba con solamente la tecla superior
+			case 38:
+				//sideMoveTankControl();
+				keyPressed = 1;
+				/*
+				if((posTank_y-speedTank) > 0){
+					keyUDown = 1;
+				}
+				else
+				{
+					keyUDown = 0;
+				}
+				*/
+				break;
+			//90 responde a 'z', gira el tanque
+			case 90:
+				//if(keyUDown != 0 ||)
+				keyRotateRight = 1;
+				break;
+			//88 responde a 'x', gira el tanque
+			case 88:
+				keyRotateLeft = 1;
+				break;
 			// 32 responde a la tecla espacio que dispara
 			case 32:
 				if(shot < 5){
@@ -858,7 +1380,11 @@ $(document).ready(function(){
 				break;
 			// 38 responde a la flecha para arriba
 			case 38:
+				keyLDown = 0;
 				keyUDown = 0;
+				keyRDown = 0;
+				keyDDown = 0;
+				keyPressed = 0;
 				break;
 			// 40 responde a la flecha para abajo
 			case 40:

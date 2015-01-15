@@ -185,7 +185,17 @@ function moveShotComputer()
 		ballPosition_y = ballPosition.top;
 		
 		speedOfShot = vShotSpeedComputer[i];
-		vSpeedOfShot = speedOfShot.split('/--/');
+		try{
+			vSpeedOfShot = speedOfShot.split('/--/');
+		}
+		catch(err)
+		{
+			$(nameOfBall).hide();
+			shotComputer--;
+			vShotComputer.splice(i,1);
+			//vShotSideOfMovement.splice(i,1);
+			vShotSpeedComputer.splice(i,1);
+		}
 		
 		newPosBall_x = parseInt(ballPosition_x) + parseInt(vSpeedOfShot[0]);
 		newPosBall_y = parseInt(ballPosition_y) + parseInt(vSpeedOfShot[1]);
@@ -1625,6 +1635,7 @@ function sideMoveTankControl(degree)
 
 function sideMoveComputerControl(degree)
 {
+	controlBorder = 0;
 	switch(degree)
 	{
 		case 0:
@@ -1635,15 +1646,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 5:
@@ -1654,15 +1657,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 10:
@@ -1673,15 +1668,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 15:
@@ -1692,15 +1679,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 20:
@@ -1711,15 +1690,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 25:
@@ -1730,15 +1701,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 30:
@@ -1749,15 +1712,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 35:
@@ -1768,15 +1723,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 40:
@@ -1787,15 +1734,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 45:
@@ -1806,15 +1745,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 50:
@@ -1825,15 +1756,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 55:
@@ -1844,15 +1767,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 60:
@@ -1863,15 +1778,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 65:
@@ -1882,15 +1789,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 70:
@@ -1901,15 +1800,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 75:
@@ -1920,15 +1811,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 80:
@@ -1939,15 +1822,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 85:
@@ -1958,15 +1833,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 90:
@@ -1977,15 +1844,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 95:
@@ -1996,15 +1855,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 100:
@@ -2015,15 +1866,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 105:
@@ -2034,15 +1877,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 110:
@@ -2053,15 +1888,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 115:
@@ -2072,15 +1899,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 120:
@@ -2091,15 +1910,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 125:
@@ -2110,15 +1921,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 130:
@@ -2129,15 +1932,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 135:
@@ -2148,15 +1943,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 140:
@@ -2167,15 +1954,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 145:
@@ -2186,15 +1965,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 150:
@@ -2205,15 +1976,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 155:
@@ -2224,15 +1987,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 160:
@@ -2243,15 +1998,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 165:
@@ -2262,15 +2009,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 170:
@@ -2281,15 +2020,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 175:
@@ -2300,15 +2031,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case 180:
@@ -2319,15 +2042,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -5:
@@ -2338,15 +2053,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -10:
@@ -2357,15 +2064,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -15:
@@ -2376,15 +2075,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -20:
@@ -2395,15 +2086,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -25:
@@ -2414,15 +2097,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -30:
@@ -2433,15 +2108,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -35:
@@ -2452,15 +2119,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -40:
@@ -2471,15 +2130,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -45:
@@ -2490,15 +2141,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -50:
@@ -2509,15 +2152,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -55:
@@ -2528,15 +2163,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -60:
@@ -2547,15 +2174,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -65:
@@ -2566,15 +2185,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -70:
@@ -2585,15 +2196,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -75:
@@ -2604,15 +2207,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -80:
@@ -2623,15 +2218,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -85:
@@ -2642,15 +2229,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -90:
@@ -2661,15 +2240,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -95:
@@ -2680,15 +2251,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -100:
@@ -2699,15 +2262,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -105:
@@ -2718,15 +2273,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -110:
@@ -2737,15 +2284,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -115:
@@ -2756,15 +2295,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -120:
@@ -2775,15 +2306,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -125:
@@ -2794,15 +2317,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -130:
@@ -2813,15 +2328,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -135:
@@ -2832,15 +2339,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -140:
@@ -2851,15 +2350,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -145:
@@ -2870,15 +2361,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -150:
@@ -2889,15 +2372,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -155:
@@ -2908,15 +2383,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -160:
@@ -2927,15 +2394,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -165:
@@ -2946,15 +2405,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -170:
@@ -2965,15 +2416,7 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
 			break;
 		case -175:
@@ -2984,19 +2427,34 @@ function sideMoveComputerControl(degree)
 			}
 			else
 			{
-				changeDirection = (1 + Math.floor(Math.random() * 10));
-				if(changeDirection < 6)
-				{
-					keyRotateLeftComputer = 1;
-				}
-				else
-				{
-					keyRotateLeftComputer = 1;
-				}
+				controlBorder = 1;
 			}
-			break;		
-	
+			break;			
 	}
+	
+	
+	if(controlBorder == 1)
+	{
+		if(rotationComputer > 0)
+		{
+			rotationComputer += 45;
+		}
+		else
+		{
+			rotationComputer -= 45;
+		}
+		changeDirection = (1 + Math.floor(Math.random() * 10));
+		if(changeDirection < 6)
+		{					
+			keyRotateLeftComputer = 1;
+		}
+		else
+		{
+			keyRotateLeftComputer = 1;
+		}
+	}
+	
+	
 }
 
 function controlRandomComputer()
@@ -3062,7 +2520,6 @@ function controlWin()
 	{
 		speedBall = 0;
 	}
-	
 }
 
 function resetGame()
@@ -3105,7 +2562,6 @@ function resetGame()
 
 }
 
-
 $(document).ready(function(){
 
 	//Inicia los valores cuando se carga la pagina
@@ -3114,7 +2570,7 @@ $(document).ready(function(){
 	//Inicia el timer que controla el movimiento del tanque y los disparos
 	var timer = $.timer(function (){
 		controlWin();
-		if(winner == 0 || winner == 1){
+		if(winner == 0){
 			if(keyPressed == 1)
 			{
 				sideMoveTankControl(rotation);
@@ -3124,18 +2580,30 @@ $(document).ready(function(){
 				rotateTank();
 			}
 		}
-		if(winner == 2 || winner == 0){
-		controlRandomComputer();
-		
-		if(keyPressedComputer == 1)
+		if(winner == 1)
 		{
-			sideMoveComputerControl(rotationComputer);
-		}		
-		if(keyRotateRightComputer == 1 || keyRotateLeftComputer == 1)
-		{
-			rotateComputer();
-			rotateComputer();
+			keyRotateRight = 1;
+			rotateTank();
 		}
+		if(winner == 0)
+		{
+			controlRandomComputer();
+			
+			if(keyPressedComputer == 1)
+			{
+				sideMoveComputerControl(rotationComputer);
+			}		
+			if(keyRotateRightComputer == 1 || keyRotateLeftComputer == 1)
+			{
+				rotateComputer();
+				rotateComputer();
+			}
+		}
+		if(winner == 2)
+		{
+			keyRotateLeftComputer = 0;
+			keyRotateRightComputer = 1;
+			rotateComputer();
 		}
 		if(vShot.length > 0)
 		{

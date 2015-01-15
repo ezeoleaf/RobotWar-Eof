@@ -1,0 +1,300 @@
+/*
+			//37 responde a la flecha hacia la izquierda
+			case 37:
+				if((posTank_x-speedTank) > 0){
+					keyLDown = 1;
+				}
+				else
+				{
+					keyLDown = 0;
+				}
+				break;
+			//39 responde a la flecha hacia la derecha
+			case 39:
+				if((posTank_x+speedTank) < 548){
+					keyRDown = 1;
+				}
+				else
+				{
+					keyRDown = 0;
+				}
+				break;
+			//38 responde a la flecha hacia arriba
+			case 38:
+				if((posTank_y-speedTank) > 0){
+					keyUDown = 1;
+				}
+				else
+				{
+					keyUDown = 0;
+				}
+				break;
+			//40 responde a la flecha hacia abajo
+			case 40:
+				if((posTank_y+speedTank) < 450){
+					keyDDown = 1;
+				}
+				else
+				{
+					keyDDown = 0;
+				}
+				break;
+			//90 responde a 'z', gira el tanque
+			case 90:
+				keyRotateRight = 1;
+				break;
+			//88 responde a 'x', gira el tanque
+			case 88:
+				keyRotateLeft = 1;
+				break;
+			*/
+			
+function decodeSideToMove(sL, sR, sU, sD)
+{
+	if(sL == 1){
+		if(sU == 1)
+		{
+			return 5;
+		}
+		if(sD == 1)
+		{
+			return 6;
+		}
+		return 1;
+	}
+	if(sR == 1)
+	{
+		if(sU == 1)
+		{
+			return 7;
+		}
+		if(sD == 1)
+		{
+			return 8;
+		}
+		return 2;
+	}
+	if(sU == 1)
+	{
+		if(sL == 1)
+		{
+			return 5;
+		}
+		if(sR == 1)
+		{
+			return 7;
+		}
+		return 3;
+	}
+	if(sD == 1)
+	{
+		if(sL == 1)
+		{
+			return 6;
+		}
+		if(sR == 1)
+		{
+			return 8;
+		}
+		return 4;
+	}
+	if(sL == 0 && sR == 0 && sU == 0 && sD == 0)
+	{
+		return 0;
+	}
+}
+			
+/*
+Movetank recibe parametros segun si mueve a la derecha o izquierda, arriba o abajo
+1 - Izquierda
+2 - Derecha
+3 - Arriba
+4 - Abajo
+5 - Izquierda - Arriba
+6 - Izquierda - Abajo
+7 - Derecha - Arriba
+8 - Derecha - Abajo
+*/
+function moveTank(sideToMove)
+{
+	switch(sideToMove)
+	{
+		case 0:
+			posTank_x = posTank_x;
+			posTank_y = posTank_y;
+			break;
+		case 1:
+			if((posTank_x-speedTank) > 0){
+				posTank_x -= speedTank;
+			}
+			break;
+		case 2:
+			if((posTank_x+speedTank) < 548){
+				posTank_x += speedTank;
+			}
+			break;
+		case 3:
+			if((posTank_y-speedTank) > 0){
+				posTank_y -= speedTank;
+			}
+			break;
+		case 4:
+			if((posTank_y+speedTank) < 450){
+				posTank_y += speedTank;
+			}
+			break
+		case 5:
+			if((posTank_x-speedTank) > 0){
+				posTank_x -= speedTank;
+			}
+			if((posTank_y-speedTank) > 0){
+				posTank_y -= speedTank;
+			}
+			break;
+		case 6:
+			if((posTank_x-speedTank) > 0){
+				posTank_x -= speedTank;
+			}
+			if((posTank_y+speedTank) < 450){
+				posTank_y += speedTank;
+			}
+			break;
+		case 7:
+			if((posTank_x+speedTank) < 548){
+				posTank_x += speedTank;
+			}
+			if((posTank_y-speedTank) > 0){
+				posTank_y -= speedTank;
+			}
+			break;
+		case 8:
+			if((posTank_x+speedTank) < 548){
+				posTank_x += speedTank;
+			}
+			if((posTank_y+speedTank) < 450){
+				posTank_y += speedTank;
+			}
+			break;
+	}
+}			
+						
+//moveTank(decodeSideToMove(keyLDown,keyRDown,keyUDown,keyDDown));
+			
+//Imprimo solo si se encuentra dentro del cuadro
+//if((posTank_x > 0 && posTank_x < 548) && (posTank_y > 0 && posTank_y < 450))
+//{
+//}			
+/*
+		else
+		{
+			if(posTank_x <= 0)
+			{
+				posTank_x = 1;
+			}
+			if(posTank_x >= 548)
+			{
+				posTank_x = 547;
+			}
+			if(posTank_y <= 0)
+			{
+				posTank_y = 1;
+			}
+			if(posTank_y >= 450)
+			{
+				posTank_y = 449;
+			}
+		}
+		*/
+	
+	
+function sideMoveTankControl()
+/*
+	if((rotation > 0 && rotation < 90) || (rotation > (-360) && rotation < (-270)))
+	{
+		keyLDown = 1;
+		keyUDown = 1;
+		keyRDown = 0;
+		keyDDown = 0;
+	}
+	if((rotation == 90) || (rotation == (-270)))
+	{
+		keyLDown = 0;
+		keyUDown = 1;
+		keyRDown = 0;
+		keyDDown = 0;	
+	}
+	if((rotation > 90 && rotation < 180) || (rotation > (-270) && rotation < (-180)))
+	{
+		keyLDown = 0;
+		keyUDown = 1;
+		keyRDown = 1;
+		keyDDown = 0;
+	}
+	if((rotation == 180) || (rotation == (-180)))
+	{
+		keyLDown = 0;
+		keyUDown = 0;
+		keyRDown = 1;
+		keyDDown = 0;
+	}
+	if((rotation > 180 && rotation < 270) || (rotation > (-180) && rotation < (-90)))
+	{
+		keyLDown = 0;
+		keyUDown = 0;
+		keyRDown = 1;
+		keyDDown = 1;
+	}
+	if((rotation == 270) || (rotation == (-90)))
+	{
+		keyLDown = 0;
+		keyUDown = 0;
+		keyRDown = 0;
+		keyDDown = 1;
+	}
+	if((rotation > 270 && rotation < 360) || (rotation > (-90) && rotation < 0))
+	{
+		keyLDown = 1;
+		keyUDown = 0;
+		keyRDown = 0;
+		keyDDown = 1;
+	}
+	if((rotation == 0) || (rotation == 360) || (rotation == (-360)))
+	{
+		keyLDown = 1;
+		keyUDown = 0;
+		keyRDown = 0;
+		keyDDown = 0;
+	}
+	*/
+	
+function getSpeedShot(sideOfMovement)
+{
+	switch(sideOfMovement)
+	{
+		case 1:
+			speedOfShot = (speedBall *(-1))+'/--/'+0;
+			break
+		case 2:
+			speedOfShot = (speedBall)+'/--/'+0;
+			break
+		case 3:
+			speedOfShot = (0)+'/--/'+(speedBall * (-1));
+			break
+		case 4:
+			speedOfShot = (0)+'/--/'+(speedBall);
+			break
+		case 5:
+			speedOfShot = (speedBall * (-1))+'/--/'+(speedBall * (-1));
+			break
+		case 6:
+			speedOfShot = (speedBall * (-1))+'/--/'+(speedBall);
+			break
+		case 7:
+			speedOfShot = (speedBall)+'/--/'+(speedBall * (-1));
+			break
+		case 8:
+			speedOfShot = (speedBall)+'/--/'+(speedBall);
+			break
+	}
+	return speedOfShot;
+}

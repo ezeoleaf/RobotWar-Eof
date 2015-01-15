@@ -81,57 +81,43 @@
 	border: solid 1px black;
 }
 
-#mines
+#player
 {
-	border: solid 1px black;
 	position: absolute;
-	left: 150px;
-	top: 15px;
-	background: black;
-	width: 50px;
+	left: 50px;
+	top: 5px;	
 	height: 20px;
-	color: red;
-	text-align: right;
+	text-align: center;
 }
 
-#minesText
+#playerText
 {
-	font-family: timeFont;
-	font-size: 20px;
+	font-family: Arial;
+	font-size: 14px;	
 }
 
 #reset
 {
 	position: absolute;
-	left: 320px;
+	left: 290px;
 	top: 14px;	
 	width: 50px;
 	height: 20px;		
 }
 
-#time
+#computer
 {
-	border: solid 1px black;
 	position: absolute;
-	left: 550px;
-	top: 15px;
-	background: black;
-	width: 50px;
+	left: 450px;
+	top: 5px;	
+	text-align: center;
 	height: 20px;
-	color: red;
-	text-align: right;
 }
 
-@font-face {
-    font-family: timeFont;
-    src: url(Fonts/ds-digib.ttf);
-    font-weight: normal;
-}
-
-#timeText
+#computerText
 {
-	font-family: timeFont;
-	font-size: 20px;
+	font-family: Arial;
+	font-size: 14px;
 }
 
 #testClick

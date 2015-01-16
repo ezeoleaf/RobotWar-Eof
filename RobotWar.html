@@ -52,7 +52,7 @@ function newGame()
 	$('#playerText').html("<b>Player 1</b>");
 	$('#computerText').html("<b>Computer</b>");
 	insertFirstRobot = '<div id="playerTank" class="bodyOfTank" style="left: '+posTank_x+'px; top: '+posTank_y+'px; -webkit-transform: rotate('+rotation+'deg); transform: rotate('+rotation+'deg);"><div class="headOfTank" id="headPlayerTank"></div><div class="canionOfTank"></div></div>';
-	insertComputerRobot = '<div id="computerTank" class="bodyOfTank" style="background: blue;left: '+posComputer_x+'px; top: '+posComputer_y+'px; -webkit-transform: rotate('+rotationComputer+'deg); transform: rotate('+rotationComputer+'deg);"><div class="headOfTank" id="headPlayerTank" style="background:blue;"></div><div class="canionOfTank" style="background:blue;"></div></div>';
+	insertComputerRobot = '<div id="computerTank" class="bodyOfTank" style="background: red;left: '+posComputer_x+'px; top: '+posComputer_y+'px; -webkit-transform: rotate('+rotationComputer+'deg); transform: rotate('+rotationComputer+'deg);"><div class="headOfTank" id="headPlayerTank" style="background: red;"></div><div class="canionOfTank" style="background: red;"></div></div>';
 	
 	$('#court').html((insertFirstRobot + insertComputerRobot));
 }
@@ -3908,7 +3908,7 @@ $(document).ready(function(){
 	
 	$('#buttonReset').click(function (){
 		resetGame();
-		$('#court').blur();
+		$('#buttonReset').blur();
 	});
 	
 	$('body').keydown(function() 

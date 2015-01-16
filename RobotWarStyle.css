@@ -3,7 +3,7 @@
 	position: absolute;
 	height:50px; 
 	width:50px; 
-	background-color:red; 
+	background-color: blue; 
 	border: solid #999 2px;
 	text-align: center;
 }
@@ -13,7 +13,7 @@
 	left: 17px;
 	top: 17px;
 	border-radius: 13px;
-	background: red;
+	background: blue;
 	border: solid #000 1px;
 	width: 15px;
 	height: 15px;
@@ -23,7 +23,7 @@
 	position: absolute;
 	left: -10px;
 	top: 22px;
-	background: red;
+	background: blue;
 	border: solid #000 1px;
 	width: 26px;
 	height: 5px;

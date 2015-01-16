@@ -98,7 +98,7 @@ function rotateComputer()
                  '-ms-transform' : 'rotate('+ rotationComputer +'deg)',
                  'transform' : 'rotate('+ rotationComputer +'deg)'});
 		
-		if(rotationComputer == 360)
+		if(rotationComputer >= 360)
 		{
 			rotationComputer = 0;
 		}
@@ -111,7 +111,7 @@ function rotateComputer()
                  '-ms-transform' : 'rotate('+ rotationComputer +'deg)',
                  'transform' : 'rotate('+ rotationComputer +'deg)'});
 		
-		if(rotationComputer == (-360))
+		if(rotationComputer <= (-360))
 		{
 			rotationComputer = 0;
 		}
@@ -157,7 +157,7 @@ function moveShot()
 		}
 		else
 		{
-			if((newPosBall_x > 0 && newPosBall_x < 570) && ((newPosBall_y > 0) && (newPosBall_y < 470)))
+			if((newPosBall_x > 0 && newPosBall_x < 600) && ((newPosBall_y > 0) && (newPosBall_y < 500)))
 			{
 				$(nameOfBall).css('left', newPosBall_x);
 				$(nameOfBall).css('top', newPosBall_y);
@@ -185,22 +185,12 @@ function moveShotComputer()
 		ballPosition_y = ballPosition.top;
 		
 		speedOfShot = vShotSpeedComputer[i];
-		try{
-			vSpeedOfShot = speedOfShot.split('/--/');
-		}
-		catch(err)
-		{
-			$(nameOfBall).hide();
-			shotComputer--;
-			vShotComputer.splice(i,1);
-			//vShotSideOfMovement.splice(i,1);
-			vShotSpeedComputer.splice(i,1);
-		}
+		vSpeedOfShot = speedOfShot.split('/--/');
 		
 		newPosBall_x = parseInt(ballPosition_x) + parseInt(vSpeedOfShot[0]);
 		newPosBall_y = parseInt(ballPosition_y) + parseInt(vSpeedOfShot[1]);
 		
-		playerPosition = $('#playerTank').position();		
+		playerPosition = $('#playerTank').position();
 		posPlayerPosHit_x = playerPosition.left;
 		posPlayerPosHit_y = playerPosition.top;
 		if((newPosBall_x >= posPlayerPosHit_x && newPosBall_x <= (posPlayerPosHit_x + 50)) && (newPosBall_y >= posPlayerPosHit_y && newPosBall_y <= (posPlayerPosHit_y + 50)))
@@ -212,17 +202,17 @@ function moveShotComputer()
 		{
 			hitControlComp = 0;
 		}
+		
 		if(hitControlComp == 1)
 		{
 			$(nameOfBall).hide();
 			shotComputer--;
 			vShotComputer.splice(i,1);
-			//vShotSideOfMovement.splice(i,1);
 			vShotSpeedComputer.splice(i,1);
 		}
 		else
 		{
-			if((newPosBall_x > 0 && newPosBall_x < 550) && ((newPosBall_y > 0) && (newPosBall_y < 460)))
+			if((newPosBall_x > 0 && newPosBall_x < 600) && ((newPosBall_y > 0) && (newPosBall_y < 500)))
 			{
 				$(nameOfBall).css('left', newPosBall_x);
 				$(nameOfBall).css('top', newPosBall_y);
@@ -1124,510 +1114,1158 @@ function getLeftAndTopComputer(degree)
 
 function sideMoveTankControl(degree)
 {
+	tankPositionT = $('#computerTank').position();
+	posTankPosHitT_x = tankPositionT.left;
+	posTankPosHitT_y = tankPositionT.top;
 	switch(degree)
 	{
 		case 0:
 		case 360:
-			if((posTank_x - speedTank) > 0){
-				posTank_x -= (speedTank);
-				posTank_y += (0);
+			sum_x = posTank_x - speedTank;
+			sum_y = 0;
+			if(sum_x > 0){
+				if((sum_x >= posTankPosHitT_x) && (sum_x <= (posTankPosHitT_x + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank);
+					posTank_y += (0);
+				}
 			}
 			break;
 		case 5:
 		case -355:
-			if(((posTank_x - speedTank) > 0) && ((posTank_y - (speedTank - 3) > 0))){
-				posTank_x -= (speedTank);
-				posTank_y -= ((speedTank - 3));
+			sum_x = posTank_x - speedTank;
+			sum_y = posTank_y - (speedTank - 3);
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank);
+					posTank_y -= ((speedTank - 3));
+				}
 			}
 			break;
 		case 10:
 		case -350:
-			if(((posTank_x - speedTank) > 0) && ((posTank_y - (speedTank - 3) > 0))){
-				posTank_x -= (speedTank);
-				posTank_y -= ((speedTank - 3));
+			sum_x = posTank_x - speedTank;
+			sum_y = posTank_y - (speedTank - 3);
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank);
+					posTank_y -= ((speedTank - 3));
+				}
 			}
 			break;
 		case 15:
 		case -345:
-			if(((posTank_x - speedTank) > 0) && ((posTank_y - (speedTank - 2) > 0))){
-				posTank_x -= (speedTank);
-				posTank_y -= ((speedTank - 2));
+			sum_x = posTank_x - speedTank;
+			sum_y = posTank_y - (speedTank - 2);
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank);
+					posTank_y -= ((speedTank - 2));
+				}
 			}
 			break;
 		case 20:
 		case -340:
-			if(((posTank_x - speedTank) > 0) && ((posTank_y - (speedTank - 2) > 0))){
-				posTank_x -= (speedTank);
-				posTank_y -= ((speedTank - 2));
+			sum_x = posTank_x - speedTank;
+			sum_y = posTank_y - (speedTank - 2);
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank);
+					posTank_y -= ((speedTank - 2));
+				}
 			}
 			break;
 		case 25:
 		case -335:
-			if(((posTank_x - speedTank) > 0) && ((posTank_y - (speedTank - 2) > 0))){
-				posTank_x -= (speedTank);
-				posTank_y -= ((speedTank - 2));
+			sum_x = posTank_x - speedTank;
+			sum_y = posTank_y - (speedTank - 2);
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank);
+					posTank_y -= ((speedTank - 2));
+				}
 			}
 			break;
 		case 30:
 		case -330:
-			if(((posTank_x - speedTank) > 0) && ((posTank_y - (speedTank - 2) > 0))){
-				posTank_x -= (speedTank);
-				posTank_y -= ((speedTank - 2));
+			sum_x = posTank_x - speedTank;
+			sum_y = posTank_y - (speedTank - 2);
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank);
+					posTank_y -= ((speedTank - 2));
+				}
 			}
 			break;
 		case 35:
 		case -325:
-			if(((posTank_x - speedTank) > 0) && ((posTank_y - (speedTank - 1) > 0))){
-				posTank_x -= (speedTank);
-				posTank_y -= ((speedTank - 1));
+			sum_x = posTank_x - speedTank;
+			sum_y = posTank_y - (speedTank - 1);
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank);
+					posTank_y -= ((speedTank - 1));
+				}
 			}
 			break;
 		case 40:
 		case -320:
-			if(((posTank_x - speedTank) > 0) && ((posTank_y - (speedTank - 1) > 0))){
-				posTank_x -= (speedTank);
-				posTank_y -= ((speedTank - 1));
+			sum_x = posTank_x - speedTank;
+			sum_y = posTank_y - (speedTank - 1);
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank);
+					posTank_y -= ((speedTank - 1));
+				}
 			}
 			break;
 		case 45:
 		case -315:
-			if(((posTank_x - speedTank) > 0) && ((posTank_y - speedTank) > 0)){
-				posTank_x -= (speedTank);
-				posTank_y -= (speedTank);
+			sum_x = posTank_x - speedTank;
+			sum_y = posTank_y - speedTank;
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank);
+					posTank_y -= (speedTank);
+				}
 			}
 			break;
 		case 50:
 		case -310:
-			if(((posTank_x - (speedTank - 1)) > 0) && ((posTank_y - speedTank) > 0)){
-				posTank_x -= (speedTank - 1);
-				posTank_y -= (speedTank);
+			sum_x = posTank_x - (speedTank - 1);
+			sum_y = posTank_y - speedTank;
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank - 1);
+					posTank_y -= (speedTank);
+				}
 			}
 			break;
 		case 55:
 		case -305:
-			if(((posTank_x - (speedTank - 1)) > 0) && ((posTank_y - speedTank) > 0)){
-				posTank_x -= (speedTank - 1);
-				posTank_y -= (speedTank);
+			sum_x = posTank_x - (speedTank - 1);
+			sum_y = posTank_y - speedTank;
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank - 1);
+					posTank_y -= (speedTank);
+				}
 			}
 			break;
 		case 60:
 		case -300:
-			if(((posTank_x - (speedTank - 2)) > 0) && ((posTank_y - speedTank) > 0)){
-				posTank_x -= (speedTank - 2);
-				posTank_y -= (speedTank);
+			sum_x = posTank_x - (speedTank - 2);
+			sum_y = posTank_y - speedTank;
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank - 2);
+					posTank_y -= (speedTank);
+				}
 			}
 			break;
 		case 65:
 		case -295:
-			if(((posTank_x - (speedTank - 2)) > 0) && ((posTank_y - speedTank) > 0)){
-				posTank_x -= (speedTank - 2);
-				posTank_y -= (speedTank);
+			sum_x = posTank_x - (speedTank - 2);
+			sum_y = posTank_y - speedTank;
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank - 2);
+					posTank_y -= (speedTank);
+				}
 			}
 			break;
 		case 70:
 		case -290:
-			if(((posTank_x - (speedTank - 2)) > 0) && ((posTank_y - speedTank) > 0)){
-				posTank_x -= (speedTank - 2);
-				posTank_y -= (speedTank);
+			sum_x = posTank_x - (speedTank - 2);
+			sum_y = posTank_y - speedTank;
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank - 2);
+					posTank_y -= (speedTank);
+				}
 			}
 			break;
 		case 75:
 		case -285:
-			if(((posTank_x - (speedTank - 2)) > 0) && ((posTank_y - speedTank) > 0)){
-				posTank_x -= (speedTank - 2);
-				posTank_y -= (speedTank);
+			sum_x = posTank_x - (speedTank - 2);
+			sum_y = posTank_y - speedTank;
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank - 2);
+					posTank_y -= (speedTank);
+				}
 			}
 			break;
 		case 80:
 		case -280:
-			if(((posTank_x - (speedTank - 3)) > 0) && ((posTank_y - speedTank) > 0)){
-				posTank_x -= (speedTank - 3);
-				posTank_y -= (speedTank);
+			sum_x = posTank_x - (speedTank - 3);
+			sum_y = posTank_y - speedTank;
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank - 3);
+					posTank_y -= (speedTank);
+				}
 			}
 			break;
 		case 85:
 		case -275:
-			if(((posTank_x - (speedTank - 3)) > 0) && ((posTank_y - speedTank) > 0)){
-				posTank_x -= (speedTank - 3);
-				posTank_y -= (speedTank);
+			sum_x = posTank_x - (speedTank - 3);
+			sum_y = posTank_y - speedTank;
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank - 3);
+					posTank_y -= (speedTank);
+				}
 			}
 			break;
 		case 90:
 		case -270:
-			if(((posTank_y - speedTank) > 0)){
-				posTank_x += (0);
-				posTank_y -= (speedTank);
+			sum_y = posTank_y - speedTank;
+			if(sum_y > 0){
+				if(sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (0);
+					posTank_y -= (speedTank);
+				}
 			}
 			break;
 		case 95:
 		case -265:
-			if(((posTank_x + (speedTank - 3)) < 548) && ((posTank_y - speedTank) > 0)){
-				posTank_x += (speedTank - 3);
-				posTank_y -= (speedTank);
+			sum_x = posTank_x + (speedTank - 3);
+			sum_y = posTank_y - speedTank;
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank - 3);
+					posTank_y -= (speedTank);
+				}
 			}
 			break;
 		case 100:
 		case -260:
-			if(((posTank_x + (speedTank - 3)) < 548) && ((posTank_y - speedTank) > 0)){
-				posTank_x += (speedTank - 3);
-				posTank_y -= (speedTank);
+			sum_x = posTank_x + (speedTank - 3);
+			sum_y = posTank_y - speedTank;
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank - 3);
+					posTank_y -= (speedTank);
+				}
 			}
 			break;
 		case 105:
 		case -255:
-			if(((posTank_x + (speedTank - 2)) < 548) && ((posTank_y - speedTank) > 0)){
-				posTank_x += (speedTank - 2);
-				posTank_y -= (speedTank);
+			sum_x = posTank_x + (speedTank - 2);
+			sum_y = posTank_y - speedTank;
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank - 2);
+					posTank_y -= (speedTank);
+				}
 			}
 			break;
 		case 110:
 		case -250:
-			if(((posTank_x + (speedTank - 2)) < 548) && ((posTank_y - speedTank) > 0)){
-				posTank_x += (speedTank - 2);
-				posTank_y -= (speedTank);
+			sum_x = posTank_x + (speedTank - 2);
+			sum_y = posTank_y - speedTank;
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank - 2);
+					posTank_y -= (speedTank);
+				}
 			}
 			break;
 		case 115:
 		case -245:
-			if(((posTank_x + (speedTank - 2)) < 548) && ((posTank_y - speedTank) > 0)){
-				posTank_x += (speedTank - 2);
-				posTank_y -= (speedTank);
+			sum_x = posTank_x + (speedTank - 2);
+			sum_y = posTank_y - speedTank;
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank - 2);
+					posTank_y -= (speedTank);
+				}
 			}
 			break;
 		case 120:
 		case -240:
-			if(((posTank_x + (speedTank - 2)) < 548) && ((posTank_y - speedTank) > 0)){
-				posTank_x += (speedTank - 2);
-				posTank_y -= (speedTank);
+			sum_x = posTank_x + (speedTank - 2);
+			sum_y = posTank_y - speedTank;
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank - 2);
+					posTank_y -= (speedTank);
+				}
 			}
 			break;
 		case 125:
 		case -235:
-			if(((posTank_x + (speedTank - 1)) < 548) && ((posTank_y - speedTank) > 0)){
-				posTank_x += (speedTank - 1);
-				posTank_y -= (speedTank);
+			sum_x = posTank_x + (speedTank - 1);
+			sum_y = posTank_y - speedTank;
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank - 1);
+					posTank_y -= (speedTank);
+				}
 			}
 			break;
 		case 130:
 		case -230:
-			if(((posTank_x + (speedTank - 1)) < 548) && ((posTank_y - speedTank) > 0)){
-				posTank_x += (speedTank - 1);
-				posTank_y -= (speedTank);
+			sum_x = posTank_x + (speedTank - 1);
+			sum_y = posTank_y - speedTank;
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank - 1);
+					posTank_y -= (speedTank);
+				}
 			}
 			break;
 		case 135:
 		case -225:
-			if(((posTank_x + speedTank) < 548) && ((posTank_y - speedTank) > 0)){
-				posTank_x += (speedTank);
-				posTank_y -= (speedTank);
+			sum_x = posTank_x + speedTank;
+			sum_y = posTank_y - speedTank;
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank);
+					posTank_y -= (speedTank);
+				}
 			}
 			break;
 		case 140:
 		case -220:
-			if(((posTank_x + speedTank) < 548) && ((posTank_y - (speedTank - 1)) > 0)){
-				posTank_x += (speedTank);
-				posTank_y -= (speedTank - 1);
+			sum_x = posTank_x + speedTank;
+			sum_y = posTank_y - (speedTank - 1);
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank);
+					posTank_y -= (speedTank - 1);
+				}
 			}
 			break;
 		case 145:
 		case -215:
-			if(((posTank_x + speedTank) < 548) && ((posTank_y - (speedTank - 1)) > 0)){
-				posTank_x += (speedTank);
-				posTank_y -= (speedTank - 1);
+			sum_x = posTank_x + speedTank;
+			sum_y = posTank_y - (speedTank - 1);
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank);
+					posTank_y -= (speedTank - 1);
+				}
 			}
 			break;
 		case 150:
 		case -210:
-			if(((posTank_x + speedTank) < 548) && ((posTank_y - (speedTank - 2)) > 0)){
-				posTank_x += (speedTank);
-				posTank_y -= (speedTank - 2);
+			sum_x = posTank_x + speedTank;
+			sum_y = posTank_y - (speedTank - 2);
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank);
+					posTank_y -= (speedTank - 2);
+				}
 			}
 			break;
 		case 155:
 		case -205:
-			if(((posTank_x + speedTank) < 548) && ((posTank_y - (speedTank - 2)) > 0)){
-				posTank_x += (speedTank);
-				posTank_y -= (speedTank - 2);
+			sum_x = posTank_x + speedTank;
+			sum_y = posTank_y - (speedTank - 2);
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank);
+					posTank_y -= (speedTank - 2);
+				}
 			}
 			break;
 		case 160:
 		case -200:
-			if(((posTank_x + speedTank) < 548) && ((posTank_y - (speedTank - 2)) > 0)){
-				posTank_x += (speedTank);
-				posTank_y -= (speedTank - 2);
+			sum_x = posTank_x + speedTank;
+			sum_y = posTank_y - (speedTank - 2);
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank);
+					posTank_y -= (speedTank - 2);
+				}
 			}
 			break;
 		case 165:
 		case -195:
-			if(((posTank_x + speedTank) < 548) && ((posTank_y - (speedTank - 2)) > 0)){
-				posTank_x += (speedTank);
-				posTank_y -= (speedTank - 2);
+			sum_x = posTank_x + speedTank;
+			sum_y = posTank_y - (speedTank - 2);
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank);
+					posTank_y -= (speedTank - 2);
+				}
 			}
 			break;
 		case 170:
 		case -190:
-			if(((posTank_x + speedTank) < 548) && ((posTank_y - (speedTank - 3)) > 0)){
-				posTank_x += (speedTank);
-				posTank_y -= (speedTank - 3);
+			sum_x = posTank_x + speedTank;
+			sum_y = posTank_y - (speedTank - 3);
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank);
+					posTank_y -= (speedTank - 3);
+				}
 			}
 			break;
 		case 175:
 		case -185:
-			if(((posTank_x + speedTank) < 548) && ((posTank_y - (speedTank - 3)) > 0)){
-				posTank_x += (speedTank);
-				posTank_y -= (speedTank - 3);
+			sum_x = posTank_x + speedTank;
+			sum_y = posTank_y - (speedTank - 3);
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank);
+					posTank_y -= (speedTank - 3);
+				}
 			}
 			break;
 		case 180:
 		case -180:
-			if(((posTank_x + speedTank) < 548)){
-				posTank_x += (speedTank);
-				posTank_y += (0);
+			sum_x = posTank_x + speedTank;
+			if(sum_x < 548){
+				if(sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank);
+					posTank_y += (0);
+				}
 			}
 			break;
 		case -5:
 		case 355:
-			if(((posTank_x - speedTank) > 0) && ((posTank_y + (speedTank - 3)) < 450)){
-				posTank_x -= (speedTank);
-				posTank_y += (speedTank - 3);
+			sum_x = posTank_x - speedTank;
+			sum_y = posTank_y + (speedTank - 3);
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank);
+					posTank_y += (speedTank - 3);
+				}
 			}
 			break;
 		case -10:
 		case 350:
-			if(((posTank_x - speedTank) > 0) && ((posTank_y + (speedTank - 3)) < 450)){
-				posTank_x -= (speedTank);
-				posTank_y += (speedTank - 3);
+			sum_x = posTank_x - speedTank;
+			sum_y = posTank_y + (speedTank - 3);
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank);
+					posTank_y += (speedTank - 3);
+				}
 			}
 			break;
 		case -15:
 		case 345:
-			if(((posTank_x - speedTank) > 0) && ((posTank_y + (speedTank - 2)) < 450)){
-				posTank_x -= (speedTank);
-				posTank_y += (speedTank - 2);
+			sum_x = posTank_x - speedTank;
+			sum_y = posTank_y + (speedTank - 2);
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank);
+					posTank_y += (speedTank - 2);
+				}
 			}
 			break;
 		case -20:
 		case 340:
-			if(((posTank_x - speedTank) > 0) && ((posTank_y + (speedTank - 2)) < 450)){
-				posTank_x -= (speedTank);
-				posTank_y += (speedTank - 2);
+			sum_x = posTank_x - speedTank;
+			sum_y = posTank_y + (speedTank - 2);
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank);
+					posTank_y += (speedTank - 2);
+				}
 			}
 			break;
 		case -25:
 		case 335:
-			if(((posTank_x - speedTank) > 0) && ((posTank_y + (speedTank - 2)) < 450)){
-				posTank_x -= (speedTank);
-				posTank_y += (speedTank - 2);
+			sum_x = posTank_x - speedTank;
+			sum_y = posTank_y + (speedTank - 2);
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank);
+					posTank_y += (speedTank - 2);
+				}
 			}
 			break;
 		case -30:
 		case 330:
-			if(((posTank_x - speedTank) > 0) && ((posTank_y + (speedTank - 2)) < 450)){
-				posTank_x -= (speedTank);
-				posTank_y += (speedTank - 2);
+			sum_x = posTank_x - speedTank;
+			sum_y = posTank_y + (speedTank - 2);
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank);
+					posTank_y += (speedTank - 2);
+				}
 			}
 			break;
 		case -35:
 		case 325:
-			if(((posTank_x - speedTank) > 0) && ((posTank_y + (speedTank - 1)) < 450)){
-				posTank_x -= (speedTank);
-				posTank_y += (speedTank - 1);
+			sum_x = posTank_x - speedTank;
+			sum_y = posTank_y + (speedTank - 1);
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank);
+					posTank_y += (speedTank - 1);
+				}
 			}
 			break;
 		case -40:
 		case 320:
-			if(((posTank_x - speedTank) > 0) && ((posTank_y + (speedTank - 1)) < 450)){
-				posTank_x -= (speedTank);
-				posTank_y += (speedTank - 1);
+			sum_x = posTank_x - speedTank;
+			sum_y = posTank_y + (speedTank - 1);
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank);
+					posTank_y += (speedTank - 1);
+				}
 			}
 			break;
 		case -45:
 		case 315:
-			if(((posTank_x - speedTank) > 0) && ((posTank_y + speedTank) < 450)){
-				posTank_x -= (speedTank);
-				posTank_y += (speedTank);
+			sum_x = posTank_x - speedTank;
+			sum_y = posTank_y + speedTank;
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank);
+					posTank_y += (speedTank);
+				}
 			}
 			break;
 		case -50:
 		case 310:
-			if(((posTank_x - (speedTank - 1)) > 0) && ((posTank_y + speedTank) < 450)){
-				posTank_x -= (speedTank - 1);
-				posTank_y += (speedTank);
+			sum_x = posTank_x - (speedTank - 1);
+			sum_y = posTank_y + speedTank;
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank - 1);
+					posTank_y += (speedTank);
+				}
 			}
 			break;
 		case -55:
 		case 305:
-			if(((posTank_x - (speedTank - 1)) > 0) && ((posTank_y + speedTank) < 450)){
-				posTank_x -= (speedTank - 1);
-				posTank_y += (speedTank);
+			sum_x = posTank_x - (speedTank - 1);
+			sum_y = posTank_y + speedTank;
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank - 1);
+					posTank_y += (speedTank);
+				}
 			}
 			break;
 		case -60:
 		case 300:
-			if(((posTank_x - (speedTank - 2)) > 0) && ((posTank_y + speedTank) < 450)){
-				posTank_x -= (speedTank - 2);
-				posTank_y += (speedTank);
+			sum_x = posTank_x - (speedTank - 2);
+			sum_y = posTank_y + speedTank;
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank - 2);
+					posTank_y += (speedTank);
+				}
 			}
 			break;
 		case -65:
 		case 295:
-			if(((posTank_x - (speedTank - 2)) > 0) && ((posTank_y + speedTank) < 450)){
-				posTank_x -= (speedTank - 2);
-				posTank_y += (speedTank);
+			sum_x = posTank_x - (speedTank - 2);
+			sum_y = posTank_y + speedTank;
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank - 2);
+					posTank_y += (speedTank);
+				}
 			}
 			break;
 		case -70:
 		case 290:
-			if(((posTank_x - (speedTank - 2)) > 0) && ((posTank_y + speedTank) < 450)){
-				posTank_x -= (speedTank - 2);
-				posTank_y += (speedTank);
+			sum_x = posTank_x - (speedTank - 2);
+			sum_y = posTank_y + speedTank;
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank - 2);
+					posTank_y += (speedTank);
+				}
 			}
 			break;
 		case -75:
 		case 285:
-			if(((posTank_x - (speedTank - 2)) > 0) && ((posTank_y + speedTank) < 450)){
-				posTank_x -= (speedTank - 2);
-				posTank_y += (speedTank);
+			sum_x = posTank_x - (speedTank - 2);
+			sum_y = posTank_y + speedTank;
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank - 2);
+					posTank_y += (speedTank);
+				}
 			}
 			break;
 		case -80:
 		case 280:
-			if(((posTank_x - (speedTank - 3)) > 0) && ((posTank_y + speedTank) < 450)){
-				posTank_x -= (speedTank - 3);
-				posTank_y += (speedTank);
+			sum_x = posTank_x - (speedTank - 3);
+			sum_y = posTank_y + speedTank;
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank - 3);
+					posTank_y += (speedTank);
+				}
 			}
 			break;
 		case -85:
 		case 275:
-			if(((posTank_x - (speedTank - 3)) > 0) && ((posTank_y + speedTank) < 450)){
-				posTank_x -= (speedTank - 3);
-				posTank_y += (speedTank);
+			sum_x = posTank_x - (speedTank - 3);
+			sum_y = posTank_y + speedTank;
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x -= (speedTank - 3);
+					posTank_y += (speedTank);
+				}
 			}
 			break;
 		case -90:
 		case 270:
-			if(((posTank_y + speedTank) < 450)){
-				posTank_x += (0);
-				posTank_y += (speedTank);
+			sum_y = posTank_y + speedTank;
+			if(sum_y < 450){
+				if(sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (0);
+					posTank_y += (speedTank);
+				}
 			}
 			break;
 		case -95:
 		case 265:
-			if(((posTank_x + (speedTank - 3)) < 548) && ((posTank_y + speedTank) < 450)){
-				posTank_x += (speedTank - 3);
-				posTank_y += (speedTank);
+			sum_x = posTank_x + (speedTank - 3);
+			sum_y = posTank_y + speedTank;
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank - 3);
+					posTank_y += (speedTank);
+				}
 			}
 			break;
 		case -100:
 		case 260:
-			if(((posTank_x + (speedTank - 3)) < 548) && ((posTank_y + speedTank) < 450)){
-				posTank_x += (speedTank - 3);
-				posTank_y += (speedTank);
+			sum_x = posTank_x + (speedTank - 3);
+			sum_y = posTank_y + speedTank;
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank - 3);
+					posTank_y += (speedTank);
+				}
 			}
 			break;
 		case -105:
 		case 255:
-			if(((posTank_x + (speedTank - 2)) < 548) && ((posTank_y + speedTank) < 450)){
-				posTank_x += (speedTank - 2);
-				posTank_y += (speedTank);
+			sum_x = posTank_x + (speedTank - 2);
+			sum_y = posTank_y + speedTank;
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank - 2);
+					posTank_y += (speedTank);
+				}
 			}
 			break;
 		case -110:
 		case 250:
-			if(((posTank_x + (speedTank - 2)) < 548) && ((posTank_y + speedTank) < 450)){
-				posTank_x += (speedTank - 2);
-				posTank_y += (speedTank);
+			sum_x = posTank_x + (speedTank - 2);
+			sum_y = posTank_y + speedTank;
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank - 2);
+					posTank_y += (speedTank);
+				}
 			}
 			break;
 		case -115:
 		case 245:
-			if(((posTank_x + (speedTank - 2)) < 548) && ((posTank_y + speedTank) < 450)){
-				posTank_x += (speedTank - 2);
-				posTank_y += (speedTank);
+			sum_x = posTank_x + (speedTank - 2);
+			sum_y = posTank_y + speedTank;
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank - 2);
+					posTank_y += (speedTank);
+				}
 			}
 			break;
 		case -120:
 		case 240:
-			if(((posTank_x + (speedTank - 2)) < 548) && ((posTank_y + speedTank) < 450)){
-				posTank_x += (speedTank - 2);
-				posTank_y += (speedTank);
+			sum_x = posTank_x + (speedTank - 2);
+			sum_y = posTank_y + speedTank;
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank - 2);
+					posTank_y += (speedTank);
+				}
 			}
 			break;
 		case -125:
 		case 235:
-			if(((posTank_x + (speedTank - 1)) < 548) && ((posTank_y + speedTank) < 450)){
-				posTank_x += (speedTank - 1);
-				posTank_y += (speedTank);
+			sum_x = posTank_x + (speedTank - 1);
+			sum_y = posTank_y + speedTank;
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank - 1);
+					posTank_y += (speedTank);
+				}
 			}
 			break;
 		case -130:
 		case 230:
-			if(((posTank_x + (speedTank - 1)) < 548) && ((posTank_y + speedTank) < 450)){
-				posTank_x += (speedTank - 1);
-				posTank_y += (speedTank);
+			sum_x = posTank_x + (speedTank - 1);
+			sum_y = posTank_y + speedTank;
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank - 1);
+					posTank_y += (speedTank);
+				}
 			}
 			break;
 		case -135:
 		case 225:
-			if(((posTank_x + speedTank) < 548) && ((posTank_y + speedTank) < 450)){
-				posTank_x += (speedTank);
-				posTank_y += (speedTank);
+			sum_x = posTank_x + speedTank;
+			sum_y = posTank_y + speedTank;
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank);
+					posTank_y += (speedTank);
+				}
 			}
 			break;
 		case -140:
 		case 220:
-			if(((posTank_x + speedTank) < 548) && ((posTank_y + (speedTank - 1)) < 450)){
-				posTank_x += (speedTank);
-				posTank_y += (speedTank - 1);
+			sum_x = posTank_x + speedTank;
+			sum_y = posTank_y + (speedTank - 1);
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank);
+					posTank_y += (speedTank - 1);
+				}
 			}
 			break;
 		case -145:
 		case 215:
-			if(((posTank_x + speedTank) < 548) && ((posTank_y + (speedTank - 1)) < 450)){
-				posTank_x += (speedTank);
-				posTank_y += (speedTank - 1);
+			sum_x = posTank_x + speedTank;
+			sum_y = posTank_y + (speedTank - 1);
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank);
+					posTank_y += (speedTank - 1);
+				}
 			}
 			break;
 		case -150:
 		case 210:
-			if(((posTank_x + speedTank) < 548) && ((posTank_y + (speedTank - 2)) < 450)){
-				posTank_x += (speedTank);
-				posTank_y += (speedTank - 2);
+			sum_x = posTank_x + speedTank;
+			sum_y = posTank_y + (speedTank - 2);
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank);
+					posTank_y += (speedTank - 2);
+				}
 			}
 			break;
 		case -155:
 		case 205:
-			if(((posTank_x + speedTank) < 548) && ((posTank_y + (speedTank - 2)) < 450)){
-				posTank_x += (speedTank);
-				posTank_y += (speedTank - 2);
+			sum_x = posTank_x + speedTank;
+			sum_y = posTank_y + (speedTank - 2);
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank);
+					posTank_y += (speedTank - 2);
+				}
 			}
 			break;
 		case -160:
 		case 200:
-			if(((posTank_x + speedTank) < 548) && ((posTank_y + (speedTank - 2)) < 450)){
-				posTank_x += (speedTank);
-				posTank_y += (speedTank - 2);
+			sum_x = posTank_x + speedTank;
+			sum_y = posTank_y + (speedTank - 2);
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank);
+					posTank_y += (speedTank - 2);
+				}
 			}
 			break;
 		case -165:
 		case 195:
-			if(((posTank_x + speedTank) < 548) && ((posTank_y + (speedTank - 2)) < 450)){
-				posTank_x += (speedTank);
-				posTank_y += (speedTank - 2);
+			sum_x = posTank_x + speedTank;
+			sum_y = posTank_y + (speedTank - 2);
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank);
+					posTank_y += (speedTank - 2);
+				}
 			}
 			break;
 		case -170:
 		case 190:
-			if(((posTank_x + speedTank) < 548) && ((posTank_y + (speedTank - 3)) < 450)){
-				posTank_x += (speedTank);
-				posTank_y += (speedTank - 3);
+			sum_x = posTank_x + speedTank;
+			sum_y = posTank_y + (speedTank - 3);
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank);
+					posTank_y += (speedTank - 3);
+				}
 			}
 			break;
 		case -175:
 		case 185:
-			if(((posTank_x + speedTank) < 548) && ((posTank_y + (speedTank - 3)) < 450)){
-				posTank_x += (speedTank);
-				posTank_y += (speedTank - 3);
+			sum_x = posTank_x + speedTank;
+			sum_y = posTank_y + (speedTank - 3);
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPosHitT_x && sum_x <= (posTankPosHitT_x + 50)) && (sum_y >= posTankPosHitT_y && sum_y <= (posTankPosHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posTank_x += (speedTank);
+					posTank_y += (speedTank - 3);
+				}
 			}
 			break;		
 	}
@@ -1636,13 +2274,25 @@ function sideMoveTankControl(degree)
 function sideMoveComputerControl(degree)
 {
 	controlBorder = 0;
+	tankPlayerPositionT = $('#playerTank').position();
+	posTankPlayerHitT_x = tankPlayerPositionT.left;
+	posTankPlayerHitT_y = tankPlayerPositionT.top;
 	switch(degree)
 	{
 		case 0:
 		case 360:
-			if((posComputer_x - speedTank) > 0){
-				posComputer_x -= (speedTank);
-				posComputer_y += (0);
+			sum_x = posComputer_x - speedTank;
+			sum_y = 0;
+			if(sum_x > 0){
+				if((sum_x >= posTankPlayerHitT_x) && (sum_x <= (posTankPlayerHitT_x + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank);
+					posComputer_y += (0);
+				}
 			}
 			else
 			{
@@ -1651,9 +2301,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 5:
 		case -355:
-			if(((posComputer_x - speedTank) > 0) && ((posComputer_y - (speedTank - 3) > 0))){
-				posComputer_x -= (speedTank);
-				posComputer_y -= ((speedTank - 3));
+			sum_x = posComputer_x - speedTank;
+			sum_y = posComputer_y - (speedTank - 3);
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank);
+					posComputer_y -= ((speedTank - 3));
+				}
 			}
 			else
 			{
@@ -1662,9 +2321,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 10:
 		case -350:
-			if(((posComputer_x - speedTank) > 0) && ((posComputer_y - (speedTank - 3) > 0))){
-				posComputer_x -= (speedTank);
-				posComputer_y -= ((speedTank - 3));
+			sum_x = posComputer_x - speedTank;
+			sum_y = posComputer_y - (speedTank - 3);
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank);
+					posComputer_y -= ((speedTank - 3));
+				}
 			}
 			else
 			{
@@ -1673,9 +2341,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 15:
 		case -345:
-			if(((posComputer_x - speedTank) > 0) && ((posComputer_y - (speedTank - 2) > 0))){
-				posComputer_x -= (speedTank);
-				posComputer_y -= ((speedTank - 2));
+			sum_x = posComputer_x - speedTank;
+			sum_y = posComputer_y - (speedTank - 2);
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank);
+					posComputer_y -= ((speedTank - 2));
+				}
 			}
 			else
 			{
@@ -1684,9 +2361,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 20:
 		case -340:
-			if(((posComputer_x - speedTank) > 0) && ((posComputer_y - (speedTank - 2) > 0))){
-				posComputer_x -= (speedTank);
-				posComputer_y -= ((speedTank - 2));
+			sum_x = posComputer_x - speedTank;
+			sum_y = posComputer_y - (speedTank - 2);
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank);
+					posComputer_y -= ((speedTank - 2));
+				}
 			}
 			else
 			{
@@ -1695,9 +2381,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 25:
 		case -335:
-			if(((posComputer_x - speedTank) > 0) && ((posComputer_y - (speedTank - 2) > 0))){
-				posComputer_x -= (speedTank);
-				posComputer_y -= ((speedTank - 2));
+			sum_x = posComputer_x - speedTank;
+			sum_y = posComputer_y - (speedTank - 2);
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank);
+					posComputer_y -= ((speedTank - 2));
+				}
 			}
 			else
 			{
@@ -1706,9 +2401,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 30:
 		case -330:
-			if(((posComputer_x - speedTank) > 0) && ((posComputer_y - (speedTank - 2) > 0))){
-				posComputer_x -= (speedTank);
-				posComputer_y -= ((speedTank - 2));
+			sum_x = posComputer_x - speedTank;
+			sum_y = posComputer_y - (speedTank - 2);
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank);
+					posComputer_y -= ((speedTank - 2));
+				}
 			}
 			else
 			{
@@ -1717,9 +2421,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 35:
 		case -325:
-			if(((posComputer_x - speedTank) > 0) && ((posComputer_y - (speedTank - 1) > 0))){
-				posComputer_x -= (speedTank);
-				posComputer_y -= ((speedTank - 1));
+			sum_x = posComputer_x - speedTank;
+			sum_y = posComputer_y - (speedTank - 1);
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank);
+					posComputer_y -= ((speedTank - 1));
+				}
 			}
 			else
 			{
@@ -1728,9 +2441,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 40:
 		case -320:
-			if(((posComputer_x - speedTank) > 0) && ((posComputer_y - (speedTank - 1) > 0))){
-				posComputer_x -= (speedTank);
-				posComputer_y -= ((speedTank - 1));
+			sum_x = posComputer_x - speedTank;
+			sum_y = posComputer_y - (speedTank - 1);
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank);
+					posComputer_y -= ((speedTank - 1));
+				}
 			}
 			else
 			{
@@ -1739,9 +2461,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 45:
 		case -315:
-			if(((posComputer_x - speedTank) > 0) && ((posComputer_y - speedTank) > 0)){
-				posComputer_x -= (speedTank);
-				posComputer_y -= (speedTank);
+			sum_x = posComputer_x - speedTank;
+			sum_y = posComputer_y - speedTank;
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank);
+					posComputer_y -= (speedTank);
+				}
 			}
 			else
 			{
@@ -1750,9 +2481,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 50:
 		case -310:
-			if(((posComputer_x - (speedTank - 1)) > 0) && ((posComputer_y - speedTank) > 0)){
-				posComputer_x -= (speedTank - 1);
-				posComputer_y -= (speedTank);
+			sum_x = posComputer_x - (speedTank - 1);
+			sum_y = posComputer_y - speedTank;
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank - 1);
+					posComputer_y -= (speedTank);
+				}
 			}
 			else
 			{
@@ -1761,9 +2501,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 55:
 		case -305:
-			if(((posComputer_x - (speedTank - 1)) > 0) && ((posComputer_y - speedTank) > 0)){
-				posComputer_x -= (speedTank - 1);
-				posComputer_y -= (speedTank);
+			sum_x = posComputer_x - (speedTank - 1);
+			sum_y = posComputer_y - speedTank;
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank - 1);
+					posComputer_y -= (speedTank);
+				}
 			}
 			else
 			{
@@ -1772,9 +2521,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 60:
 		case -300:
-			if(((posComputer_x - (speedTank - 2)) > 0) && ((posComputer_y - speedTank) > 0)){
-				posComputer_x -= (speedTank - 2);
-				posComputer_y -= (speedTank);
+			sum_x = posComputer_x - (speedTank - 2);
+			sum_y = posComputer_y - speedTank;
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank - 2);
+					posComputer_y -= (speedTank);
+				}
 			}
 			else
 			{
@@ -1783,9 +2541,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 65:
 		case -295:
-			if(((posComputer_x - (speedTank - 2)) > 0) && ((posComputer_y - speedTank) > 0)){
-				posComputer_x -= (speedTank - 2);
-				posComputer_y -= (speedTank);
+			sum_x = posComputer_x - (speedTank - 2);
+			sum_y = posComputer_y - speedTank;
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank - 2);
+					posComputer_y -= (speedTank);
+				}
 			}
 			else
 			{
@@ -1794,9 +2561,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 70:
 		case -290:
-			if(((posComputer_x - (speedTank - 2)) > 0) && ((posComputer_y - speedTank) > 0)){
-				posComputer_x -= (speedTank - 2);
-				posComputer_y -= (speedTank);
+			sum_x = posComputer_x - (speedTank - 2);
+			sum_y = posComputer_y - speedTank;
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank - 2);
+					posComputer_y -= (speedTank);
+				}
 			}
 			else
 			{
@@ -1805,9 +2581,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 75:
 		case -285:
-			if(((posComputer_x - (speedTank - 2)) > 0) && ((posComputer_y - speedTank) > 0)){
-				posComputer_x -= (speedTank - 2);
-				posComputer_y -= (speedTank);
+			sum_x = posComputer_x - (speedTank - 2);
+			sum_y = posComputer_y - speedTank;
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank - 2);
+					posComputer_y -= (speedTank);
+				}
 			}
 			else
 			{
@@ -1816,9 +2601,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 80:
 		case -280:
-			if(((posComputer_x - (speedTank - 3)) > 0) && ((posComputer_y - speedTank) > 0)){
-				posComputer_x -= (speedTank - 3);
-				posComputer_y -= (speedTank);
+			sum_x = posComputer_x - (speedTank - 3);
+			sum_y = posComputer_y - speedTank;
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank - 3);
+					posComputer_y -= (speedTank);
+				}
 			}
 			else
 			{
@@ -1827,9 +2621,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 85:
 		case -275:
-			if(((posComputer_x - (speedTank - 3)) > 0) && ((posComputer_y - speedTank) > 0)){
-				posComputer_x -= (speedTank - 3);
-				posComputer_y -= (speedTank);
+			sum_x = posComputer_x - (speedTank - 3);
+			sum_y = posComputer_y - speedTank;
+			if((sum_x > 0) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank - 3);
+					posComputer_y -= (speedTank);
+				}
 			}
 			else
 			{
@@ -1838,9 +2641,17 @@ function sideMoveComputerControl(degree)
 			break;
 		case 90:
 		case -270:
-			if(((posComputer_y - speedTank) > 0)){
-				posComputer_x += (0);
-				posComputer_y -= (speedTank);
+			sum_y = posComputer_y - speedTank;
+			if(sum_y > 0){
+				if(sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (0);
+					posComputer_y -= (speedTank);
+				}
 			}
 			else
 			{
@@ -1849,9 +2660,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 95:
 		case -265:
-			if(((posComputer_x + (speedTank - 3)) < 548) && ((posComputer_y - speedTank) > 0)){
-				posComputer_x += (speedTank - 3);
-				posComputer_y -= (speedTank);
+			sum_x = posComputer_x + (speedTank - 3);
+			sum_y = posComputer_y - speedTank;
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank - 3);
+					posComputer_y -= (speedTank);
+				}
 			}
 			else
 			{
@@ -1860,9 +2680,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 100:
 		case -260:
-			if(((posComputer_x + (speedTank - 3)) < 548) && ((posComputer_y - speedTank) > 0)){
-				posComputer_x += (speedTank - 3);
-				posComputer_y -= (speedTank);
+			sum_x = posComputer_x + (speedTank - 3);
+			sum_y = posComputer_y - speedTank;
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank - 3);
+					posComputer_y -= (speedTank);
+				}
 			}
 			else
 			{
@@ -1871,9 +2700,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 105:
 		case -255:
-			if(((posComputer_x + (speedTank - 2)) < 548) && ((posComputer_y - speedTank) > 0)){
-				posComputer_x += (speedTank - 2);
-				posComputer_y -= (speedTank);
+			sum_x = posComputer_x + (speedTank - 2);
+			sum_y = posComputer_y - speedTank;
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank - 2);
+					posComputer_y -= (speedTank);
+				}
 			}
 			else
 			{
@@ -1882,9 +2720,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 110:
 		case -250:
-			if(((posComputer_x + (speedTank - 2)) < 548) && ((posComputer_y - speedTank) > 0)){
-				posComputer_x += (speedTank - 2);
-				posComputer_y -= (speedTank);
+			sum_x = posComputer_x + (speedTank - 2);
+			sum_y = posComputer_y - speedTank;
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank - 2);
+					posComputer_y -= (speedTank);
+				}
 			}
 			else
 			{
@@ -1893,9 +2740,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 115:
 		case -245:
-			if(((posComputer_x + (speedTank - 2)) < 548) && ((posComputer_y - speedTank) > 0)){
-				posComputer_x += (speedTank - 2);
-				posComputer_y -= (speedTank);
+			sum_x = posComputer_x + (speedTank - 2);
+			sum_y = posComputer_y - speedTank;
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank - 2);
+					posComputer_y -= (speedTank);
+				}
 			}
 			else
 			{
@@ -1904,9 +2760,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 120:
 		case -240:
-			if(((posComputer_x + (speedTank - 2)) < 548) && ((posComputer_y - speedTank) > 0)){
-				posComputer_x += (speedTank - 2);
-				posComputer_y -= (speedTank);
+			sum_x = posComputer_x + (speedTank - 2);
+			sum_y = posComputer_y - speedTank;
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank - 2);
+					posComputer_y -= (speedTank);
+				}
 			}
 			else
 			{
@@ -1915,9 +2780,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 125:
 		case -235:
-			if(((posComputer_x + (speedTank - 1)) < 548) && ((posComputer_y - speedTank) > 0)){
-				posComputer_x += (speedTank - 1);
-				posComputer_y -= (speedTank);
+			sum_x = posComputer_x + (speedTank - 1);
+			sum_y = posComputer_y - speedTank;
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank - 1);
+					posComputer_y -= (speedTank);
+				}
 			}
 			else
 			{
@@ -1926,9 +2800,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 130:
 		case -230:
-			if(((posComputer_x + (speedTank - 1)) < 548) && ((posComputer_y - speedTank) > 0)){
-				posComputer_x += (speedTank - 1);
-				posComputer_y -= (speedTank);
+			sum_x = posComputer_x + (speedTank - 1);
+			sum_y = posComputer_y - speedTank;
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank - 1);
+					posComputer_y -= (speedTank);
+				}
 			}
 			else
 			{
@@ -1937,9 +2820,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 135:
 		case -225:
-			if(((posComputer_x + speedTank) < 548) && ((posComputer_y - speedTank) > 0)){
-				posComputer_x += (speedTank);
-				posComputer_y -= (speedTank);
+			sum_x = posComputer_x + speedTank;
+			sum_y = posComputer_y - speedTank;
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank);
+					posComputer_y -= (speedTank);
+				}
 			}
 			else
 			{
@@ -1948,9 +2840,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 140:
 		case -220:
-			if(((posComputer_x + speedTank) < 548) && ((posComputer_y - (speedTank - 1)) > 0)){
-				posComputer_x += (speedTank);
-				posComputer_y -= (speedTank - 1);
+			sum_x = posComputer_x + speedTank;
+			sum_y = posComputer_y - (speedTank - 1);
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank);
+					posComputer_y -= (speedTank - 1);
+				}
 			}
 			else
 			{
@@ -1959,9 +2860,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 145:
 		case -215:
-			if(((posComputer_x + speedTank) < 548) && ((posComputer_y - (speedTank - 1)) > 0)){
-				posComputer_x += (speedTank);
-				posComputer_y -= (speedTank - 1);
+			sum_x = posComputer_x + speedTank;
+			sum_y = posComputer_y - (speedTank - 1);
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank);
+					posComputer_y -= (speedTank - 1);
+				}
 			}
 			else
 			{
@@ -1970,9 +2880,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 150:
 		case -210:
-			if(((posComputer_x + speedTank) < 548) && ((posComputer_y - (speedTank - 2)) > 0)){
-				posComputer_x += (speedTank);
-				posComputer_y -= (speedTank - 2);
+			sum_x = posComputer_x + speedTank;
+			sum_y = posComputer_y - (speedTank - 2);
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank);
+					posComputer_y -= (speedTank - 2);
+				}
 			}
 			else
 			{
@@ -1981,9 +2900,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 155:
 		case -205:
-			if(((posComputer_x + speedTank) < 548) && ((posComputer_y - (speedTank - 2)) > 0)){
-				posComputer_x += (speedTank);
-				posComputer_y -= (speedTank - 2);
+			sum_x = posComputer_x + speedTank;
+			sum_y = posComputer_y - (speedTank - 2);
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank);
+					posComputer_y -= (speedTank - 2);
+				}
 			}
 			else
 			{
@@ -1992,9 +2920,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 160:
 		case -200:
-			if(((posComputer_x + speedTank) < 548) && ((posComputer_y - (speedTank - 2)) > 0)){
-				posComputer_x += (speedTank);
-				posComputer_y -= (speedTank - 2);
+			sum_x = posComputer_x + speedTank;
+			sum_y = posComputer_y - (speedTank - 2);
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank);
+					posComputer_y -= (speedTank - 2);
+				}
 			}
 			else
 			{
@@ -2003,9 +2940,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 165:
 		case -195:
-			if(((posComputer_x + speedTank) < 548) && ((posComputer_y - (speedTank - 2)) > 0)){
-				posComputer_x += (speedTank);
-				posComputer_y -= (speedTank - 2);
+			sum_x = posComputer_x + speedTank;
+			sum_y = posComputer_y - (speedTank - 2);
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank);
+					posComputer_y -= (speedTank - 2);
+				}
 			}
 			else
 			{
@@ -2014,9 +2960,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 170:
 		case -190:
-			if(((posComputer_x + speedTank) < 548) && ((posComputer_y - (speedTank - 3)) > 0)){
-				posComputer_x += (speedTank);
-				posComputer_y -= (speedTank - 3);
+			sum_x = posComputer_x + speedTank;
+			sum_y = posComputer_y - (speedTank - 3);
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank);
+					posComputer_y -= (speedTank - 3);
+				}
 			}
 			else
 			{
@@ -2025,9 +2980,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case 175:
 		case -185:
-			if(((posComputer_x + speedTank) < 548) && ((posComputer_y - (speedTank - 3)) > 0)){
-				posComputer_x += (speedTank);
-				posComputer_y -= (speedTank - 3);
+			sum_x = posComputer_x + speedTank;
+			sum_y = posComputer_y - (speedTank - 3);
+			if((sum_x < 548) && (sum_y > 0)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank);
+					posComputer_y -= (speedTank - 3);
+				}
 			}
 			else
 			{
@@ -2036,9 +3000,17 @@ function sideMoveComputerControl(degree)
 			break;
 		case 180:
 		case -180:
-			if(((posComputer_x + speedTank) < 548)){
-				posComputer_x += (speedTank);
-				posComputer_y += (0);
+			sum_x = posComputer_x + speedTank;
+			if(sum_x < 548){
+				if(sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank);
+					posComputer_y += (0);
+				}
 			}
 			else
 			{
@@ -2047,9 +3019,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -5:
 		case 355:
-			if(((posComputer_x - speedTank) > 0) && ((posComputer_y + (speedTank - 3)) < 450)){
-				posComputer_x -= (speedTank);
-				posComputer_y += (speedTank - 3);
+			sum_x = posComputer_x - speedTank;
+			sum_y = posComputer_y + (speedTank - 3);
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank);
+					posComputer_y += (speedTank - 3);
+				}
 			}
 			else
 			{
@@ -2058,9 +3039,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -10:
 		case 350:
-			if(((posComputer_x - speedTank) > 0) && ((posComputer_y + (speedTank - 3)) < 450)){
-				posComputer_x -= (speedTank);
-				posComputer_y += (speedTank - 3);
+			sum_x = posComputer_x - speedTank;
+			sum_y = posComputer_y + (speedTank - 3);
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank);
+					posComputer_y += (speedTank - 3);
+				}
 			}
 			else
 			{
@@ -2069,9 +3059,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -15:
 		case 345:
-			if(((posComputer_x - speedTank) > 0) && ((posComputer_y + (speedTank - 2)) < 450)){
-				posComputer_x -= (speedTank);
-				posComputer_y += (speedTank - 2);
+			sum_x = posComputer_x - speedTank;
+			sum_y = posComputer_y + (speedTank - 2);
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank);
+					posComputer_y += (speedTank - 2);
+				}
 			}
 			else
 			{
@@ -2080,9 +3079,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -20:
 		case 340:
-			if(((posComputer_x - speedTank) > 0) && ((posComputer_y + (speedTank - 2)) < 450)){
-				posComputer_x -= (speedTank);
-				posComputer_y += (speedTank - 2);
+			sum_x = posComputer_x - speedTank;
+			sum_y = posComputer_y + (speedTank - 2);
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank);
+					posComputer_y += (speedTank - 2);
+				}
 			}
 			else
 			{
@@ -2091,9 +3099,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -25:
 		case 335:
-			if(((posComputer_x - speedTank) > 0) && ((posComputer_y + (speedTank - 2)) < 450)){
-				posComputer_x -= (speedTank);
-				posComputer_y += (speedTank - 2);
+			sum_x = posComputer_x - speedTank;
+			sum_y = posComputer_y + (speedTank - 2);
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank);
+					posComputer_y += (speedTank - 2);
+				}
 			}
 			else
 			{
@@ -2102,9 +3119,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -30:
 		case 330:
-			if(((posComputer_x - speedTank) > 0) && ((posComputer_y + (speedTank - 2)) < 450)){
-				posComputer_x -= (speedTank);
-				posComputer_y += (speedTank - 2);
+			sum_x = posComputer_x - speedTank;
+			sum_y = posComputer_y + (speedTank - 2);
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank);
+					posComputer_y += (speedTank - 2);
+				}
 			}
 			else
 			{
@@ -2113,9 +3139,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -35:
 		case 325:
-			if(((posComputer_x - speedTank) > 0) && ((posComputer_y + (speedTank - 1)) < 450)){
-				posComputer_x -= (speedTank);
-				posComputer_y += (speedTank - 1);
+			sum_x = posComputer_x - speedTank;
+			sum_y = posComputer_y + (speedTank - 1);
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank);
+					posComputer_y += (speedTank - 1);
+				}
 			}
 			else
 			{
@@ -2124,9 +3159,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -40:
 		case 320:
-			if(((posComputer_x - speedTank) > 0) && ((posComputer_y + (speedTank - 1)) < 450)){
-				posComputer_x -= (speedTank);
-				posComputer_y += (speedTank - 1);
+			sum_x = posComputer_x - speedTank;
+			sum_y = posComputer_y + (speedTank - 1);
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank);
+					posComputer_y += (speedTank - 1);
+				}
 			}
 			else
 			{
@@ -2135,9 +3179,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -45:
 		case 315:
-			if(((posComputer_x - speedTank) > 0) && ((posComputer_y + speedTank) < 450)){
-				posComputer_x -= (speedTank);
-				posComputer_y += (speedTank);
+			sum_x = posComputer_x - speedTank;
+			sum_y = posComputer_y + speedTank;
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank);
+					posComputer_y += (speedTank);
+				}
 			}
 			else
 			{
@@ -2146,9 +3199,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -50:
 		case 310:
-			if(((posComputer_x - (speedTank - 1)) > 0) && ((posComputer_y + speedTank) < 450)){
-				posComputer_x -= (speedTank - 1);
-				posComputer_y += (speedTank);
+			sum_x = posComputer_x - (speedTank - 1);
+			sum_y = posComputer_y + speedTank;
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank - 1);
+					posComputer_y += (speedTank);
+				}
 			}
 			else
 			{
@@ -2157,9 +3219,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -55:
 		case 305:
-			if(((posComputer_x - (speedTank - 1)) > 0) && ((posComputer_y + speedTank) < 450)){
-				posComputer_x -= (speedTank - 1);
-				posComputer_y += (speedTank);
+			sum_x = posComputer_x - (speedTank - 1);
+			sum_y = posComputer_y + speedTank;
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank - 1);
+					posComputer_y += (speedTank);
+				}
 			}
 			else
 			{
@@ -2168,9 +3239,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -60:
 		case 300:
-			if(((posComputer_x - (speedTank - 2)) > 0) && ((posComputer_y + speedTank) < 450)){
-				posComputer_x -= (speedTank - 2);
-				posComputer_y += (speedTank);
+			sum_x = posComputer_x - (speedTank - 2);
+			sum_y = posComputer_y + speedTank;
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank - 2);
+					posComputer_y += (speedTank);
+				}
 			}
 			else
 			{
@@ -2179,9 +3259,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -65:
 		case 295:
-			if(((posComputer_x - (speedTank - 2)) > 0) && ((posComputer_y + speedTank) < 450)){
-				posComputer_x -= (speedTank - 2);
-				posComputer_y += (speedTank);
+			sum_x = posComputer_x - (speedTank - 2);
+			sum_y = posComputer_y + speedTank;
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank - 2);
+					posComputer_y += (speedTank);
+				}
 			}
 			else
 			{
@@ -2190,9 +3279,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -70:
 		case 290:
-			if(((posComputer_x - (speedTank - 2)) > 0) && ((posComputer_y + speedTank) < 450)){
-				posComputer_x -= (speedTank - 2);
-				posComputer_y += (speedTank);
+			sum_x = posComputer_x - (speedTank - 2);
+			sum_y = posComputer_y + speedTank;
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank - 2);
+					posComputer_y += (speedTank);
+				}
 			}
 			else
 			{
@@ -2201,9 +3299,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -75:
 		case 285:
-			if(((posComputer_x - (speedTank - 2)) > 0) && ((posComputer_y + speedTank) < 450)){
-				posComputer_x -= (speedTank - 2);
-				posComputer_y += (speedTank);
+			sum_x = posComputer_x - (speedTank - 2);
+			sum_y = posComputer_y + speedTank;
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank - 2);
+					posComputer_y += (speedTank);
+				}
 			}
 			else
 			{
@@ -2212,9 +3319,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -80:
 		case 280:
-			if(((posComputer_x - (speedTank - 3)) > 0) && ((posComputer_y + speedTank) < 450)){
-				posComputer_x -= (speedTank - 3);
-				posComputer_y += (speedTank);
+			sum_x = posComputer_x - (speedTank - 3);
+			sum_y = posComputer_y + speedTank;
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank - 3);
+					posComputer_y += (speedTank);
+				}
 			}
 			else
 			{
@@ -2223,9 +3339,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -85:
 		case 275:
-			if(((posComputer_x - (speedTank - 3)) > 0) && ((posComputer_y + speedTank) < 450)){
-				posComputer_x -= (speedTank - 3);
-				posComputer_y += (speedTank);
+			sum_x = posComputer_x - (speedTank - 3);
+			sum_y = posComputer_y + speedTank;
+			if((sum_x > 0) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x -= (speedTank - 3);
+					posComputer_y += (speedTank);
+				}
 			}
 			else
 			{
@@ -2234,9 +3359,17 @@ function sideMoveComputerControl(degree)
 			break;
 		case -90:
 		case 270:
-			if(((posComputer_y + speedTank) < 450)){
-				posComputer_x += (0);
-				posComputer_y += (speedTank);
+			sum_y = posComputer_y + speedTank;
+			if(sum_y < 450){
+				if(sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (0);
+					posComputer_y += (speedTank);
+				}
 			}
 			else
 			{
@@ -2245,9 +3378,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -95:
 		case 265:
-			if(((posComputer_x + (speedTank - 3)) < 548) && ((posComputer_y + speedTank) < 450)){
-				posComputer_x += (speedTank - 3);
-				posComputer_y += (speedTank);
+			sum_x = posComputer_x + (speedTank - 3);
+			sum_y = posComputer_y + speedTank;
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank - 3);
+					posComputer_y += (speedTank);
+				}
 			}
 			else
 			{
@@ -2256,9 +3398,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -100:
 		case 260:
-			if(((posComputer_x + (speedTank - 3)) < 548) && ((posComputer_y + speedTank) < 450)){
-				posComputer_x += (speedTank - 3);
-				posComputer_y += (speedTank);
+			sum_x = posComputer_x + (speedTank - 3);
+			sum_y = posComputer_y + speedTank;
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank - 3);
+					posComputer_y += (speedTank);
+				}
 			}
 			else
 			{
@@ -2267,9 +3418,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -105:
 		case 255:
-			if(((posComputer_x + (speedTank - 2)) < 548) && ((posComputer_y + speedTank) < 450)){
-				posComputer_x += (speedTank - 2);
-				posComputer_y += (speedTank);
+			sum_x = posComputer_x + (speedTank - 2);
+			sum_y = posComputer_y + speedTank;
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank - 2);
+					posComputer_y += (speedTank);
+				}
 			}
 			else
 			{
@@ -2278,9 +3438,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -110:
 		case 250:
-			if(((posComputer_x + (speedTank - 2)) < 548) && ((posComputer_y + speedTank) < 450)){
-				posComputer_x += (speedTank - 2);
-				posComputer_y += (speedTank);
+			sum_x = posComputer_x + (speedTank - 2);
+			sum_y = posComputer_y + speedTank;
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank - 2);
+					posComputer_y += (speedTank);
+				}
 			}
 			else
 			{
@@ -2289,9 +3458,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -115:
 		case 245:
-			if(((posComputer_x + (speedTank - 2)) < 548) && ((posComputer_y + speedTank) < 450)){
-				posComputer_x += (speedTank - 2);
-				posComputer_y += (speedTank);
+			sum_x = posComputer_x + (speedTank - 2);
+			sum_y = posComputer_y + speedTank;
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank - 2);
+					posComputer_y += (speedTank);
+				}
 			}
 			else
 			{
@@ -2300,9 +3478,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -120:
 		case 240:
-			if(((posComputer_x + (speedTank - 2)) < 548) && ((posComputer_y + speedTank) < 450)){
-				posComputer_x += (speedTank - 2);
-				posComputer_y += (speedTank);
+			sum_x = posComputer_x + (speedTank - 2);
+			sum_y = posComputer_y + speedTank;
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank - 2);
+					posComputer_y += (speedTank);
+				}
 			}
 			else
 			{
@@ -2311,9 +3498,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -125:
 		case 235:
-			if(((posComputer_x + (speedTank - 1)) < 548) && ((posComputer_y + speedTank) < 450)){
-				posComputer_x += (speedTank - 1);
-				posComputer_y += (speedTank);
+			sum_x = posComputer_x + (speedTank - 1);
+			sum_y = posComputer_y + speedTank;
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank - 1);
+					posComputer_y += (speedTank);
+				}
 			}
 			else
 			{
@@ -2322,9 +3518,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -130:
 		case 230:
-			if(((posComputer_x + (speedTank - 1)) < 548) && ((posComputer_y + speedTank) < 450)){
-				posComputer_x += (speedTank - 1);
-				posComputer_y += (speedTank);
+			sum_x = posComputer_x + (speedTank - 1);
+			sum_y = posComputer_y + speedTank;
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank - 1);
+					posComputer_y += (speedTank);
+				}
 			}
 			else
 			{
@@ -2333,9 +3538,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -135:
 		case 225:
-			if(((posComputer_x + speedTank) < 548) && ((posComputer_y + speedTank) < 450)){
-				posComputer_x += (speedTank);
-				posComputer_y += (speedTank);
+			sum_x = posComputer_x + speedTank;
+			sum_y = posComputer_y + speedTank;
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank);
+					posComputer_y += (speedTank);
+				}
 			}
 			else
 			{
@@ -2344,9 +3558,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -140:
 		case 220:
-			if(((posComputer_x + speedTank) < 548) && ((posComputer_y + (speedTank - 1)) < 450)){
-				posComputer_x += (speedTank);
-				posComputer_y += (speedTank - 1);
+			sum_x = posComputer_x + speedTank;
+			sum_y = posComputer_y + (speedTank - 1);
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank);
+					posComputer_y += (speedTank - 1);
+				}
 			}
 			else
 			{
@@ -2355,9 +3578,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -145:
 		case 215:
-			if(((posComputer_x + speedTank) < 548) && ((posComputer_y + (speedTank - 1)) < 450)){
-				posComputer_x += (speedTank);
-				posComputer_y += (speedTank - 1);
+			sum_x = posComputer_x + speedTank;
+			sum_y = posComputer_y + (speedTank - 1);
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank);
+					posComputer_y += (speedTank - 1);
+				}
 			}
 			else
 			{
@@ -2366,9 +3598,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -150:
 		case 210:
-			if(((posComputer_x + speedTank) < 548) && ((posComputer_y + (speedTank - 2)) < 450)){
-				posComputer_x += (speedTank);
-				posComputer_y += (speedTank - 2);
+			sum_x = posComputer_x + speedTank;
+			sum_y = posComputer_y + (speedTank - 2);
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank);
+					posComputer_y += (speedTank - 2);
+				}
 			}
 			else
 			{
@@ -2377,9 +3618,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -155:
 		case 205:
-			if(((posComputer_x + speedTank) < 548) && ((posComputer_y + (speedTank - 2)) < 450)){
-				posComputer_x += (speedTank);
-				posComputer_y += (speedTank - 2);
+			sum_x = posComputer_x + speedTank;
+			sum_y = posComputer_y + (speedTank - 2);
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank);
+					posComputer_y += (speedTank - 2);
+				}
 			}
 			else
 			{
@@ -2388,9 +3638,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -160:
 		case 200:
-			if(((posComputer_x + speedTank) < 548) && ((posComputer_y + (speedTank - 2)) < 450)){
-				posComputer_x += (speedTank);
-				posComputer_y += (speedTank - 2);
+			sum_x = posComputer_x + speedTank;
+			sum_y = posComputer_y + (speedTank - 2);
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank);
+					posComputer_y += (speedTank - 2);
+				}
 			}
 			else
 			{
@@ -2399,9 +3658,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -165:
 		case 195:
-			if(((posComputer_x + speedTank) < 548) && ((posComputer_y + (speedTank - 2)) < 450)){
-				posComputer_x += (speedTank);
-				posComputer_y += (speedTank - 2);
+			sum_x = posComputer_x + speedTank;
+			sum_y = posComputer_y + (speedTank - 2);
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank);
+					posComputer_y += (speedTank - 2);
+				}
 			}
 			else
 			{
@@ -2410,9 +3678,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -170:
 		case 190:
-			if(((posComputer_x + speedTank) < 548) && ((posComputer_y + (speedTank - 3)) < 450)){
-				posComputer_x += (speedTank);
-				posComputer_y += (speedTank - 3);
+			sum_x = posComputer_x + speedTank;
+			sum_y = posComputer_y + (speedTank - 3);
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank);
+					posComputer_y += (speedTank - 3);
+				}
 			}
 			else
 			{
@@ -2421,9 +3698,18 @@ function sideMoveComputerControl(degree)
 			break;
 		case -175:
 		case 185:
-			if(((posComputer_x + speedTank) < 548) && ((posComputer_y + (speedTank - 3)) < 450)){
-				posComputer_x += (speedTank);
-				posComputer_y += (speedTank - 3);
+			sum_x = posComputer_x + speedTank;
+			sum_y = posComputer_y + (speedTank - 3);
+			if((sum_x < 548) && (sum_y < 450)){
+				if((sum_x >= posTankPlayerHitT_x && sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
+				{
+					break;
+				}
+				else
+				{
+					posComputer_x += (speedTank);
+					posComputer_y += (speedTank - 3);
+				}
 			}
 			else
 			{
@@ -2453,14 +3739,12 @@ function sideMoveComputerControl(degree)
 			keyRotateLeftComputer = 1;
 		}
 	}
-	
-	
 }
 
 function controlRandomComputer()
 {
 	randomMoveControl = (1 + Math.floor(Math.random() * 10));
-	if(randomMoveControl < 7)
+	if(randomMoveControl < 9)
 	{
 		keyPressedComputer = 1;
 	}
@@ -2485,8 +3769,8 @@ function controlRandomComputer()
 	if(winner != 2){
 		if(shotComputer < 5)
 		{
-			randomShotControl = (1 + Math.floor(Math.random() * 10));
-			if(randomShotControl > 9)
+			randomShotControl = (1 + Math.floor(Math.random() * 20));
+			if(randomShotControl > 18)
 			{
 				shotComputer++;
 				cantOfShots++;

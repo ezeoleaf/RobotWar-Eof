@@ -1112,11 +1112,40 @@ function getLeftAndTopComputer(degree)
 	return leftAndTop;
 }
 
-function sideMoveTankControl(degree)
+function sideMoveTankControl(degree,keyP)
 {
 	tankPositionT = $('#computerTank').position();
 	posTankPosHitT_x = tankPositionT.left;
 	posTankPosHitT_y = tankPositionT.top;
+	if(keyP == 2)
+	{
+		if(degree >-1)
+		{
+			if(degree > 180)
+			{
+				restOfCalcule = 360 - degree;
+				toSumToDegree = 180 - restOfCalcule;
+				degree = toSumToDegree;
+			}
+			else
+			{
+				degree += 180;
+			}
+		}
+		if(degree < 0)
+		{
+			if(degree > -180)
+			{
+				degree -= 180;
+			}
+			else
+			{
+				restOfCalcule = (-360) - degree;
+				toSumToDegree = (-180) - restOfCalcule;
+				degree = toSumToDegree;
+			}
+		}
+	}
 	switch(degree)
 	{
 		case 0:
@@ -1131,6 +1160,7 @@ function sideMoveTankControl(degree)
 				else
 				{
 					posTank_x -= (speedTank);
+					//posTank_x = sum_x;
 					posTank_y += (0);
 				}
 			}
@@ -3855,9 +3885,9 @@ $(document).ready(function(){
 	var timer = $.timer(function (){
 		controlWin();
 		if(winner == 0){
-			if(keyPressed == 1)
+			if(keyPressed != 0)
 			{
-				sideMoveTankControl(rotation);
+				sideMoveTankControl(rotation,keyPressed);
 			}
 			if(keyRotateRight == 1 || keyRotateLeft == 1)
 			{
@@ -3915,12 +3945,19 @@ $(document).ready(function(){
 	{
 		switch(event.which) {
 			//Prueba con solamente la tecla superior
+			//KeyPressed puede ser 1 o 2 para adelante o para atras.
 			case 38:
 				keyPressed = 1;
 				break;
+			//Flecha abajo
+			case 40:
+				keyPressed = 2;
+				break;
+			//Flecha izquierda
 			case 37:
 				keyRotateLeft = 1;
 				break;
+			//Flecha derecha
 			case 39:
 				keyRotateRight = 1;
 				break;
@@ -3958,6 +3995,10 @@ $(document).ready(function(){
 		switch(event.which) {
 			// 38 responde a la flecha para arriba
 			case 38:
+				keyPressed = 0;
+				break;
+			//Flecha abajo
+			case 40:
 				keyPressed = 0;
 				break;
 			//Flecha izquierda

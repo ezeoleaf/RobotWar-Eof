@@ -3774,7 +3774,7 @@ function sideMoveComputerControl(degree)
 function controlRandomComputer()
 {
 	randomMoveControl = (1 + Math.floor(Math.random() * 10));
-	if(randomMoveControl < 9)
+	if(randomMoveControl < 7)
 	{
 		keyPressedComputer = 1;
 	}
@@ -3867,7 +3867,7 @@ function controlRandomComputer()
 		}
 	}
 	if(winner != 2){
-		if(shotComputer < 5)
+		if(shotComputer < 4)
 		{
 			randomShotControl = (1 + Math.floor(Math.random() * 20));
 			if(randomShotControl > 18)

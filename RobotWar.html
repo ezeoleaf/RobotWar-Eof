@@ -2314,7 +2314,7 @@ function sideMoveComputerControl(degree)
 			sum_x = posComputer_x - speedTank;
 			sum_y = 0;
 			if(sum_x > 0){
-				if((sum_x >= posTankPlayerHitT_x) && (sum_x <= (posTankPlayerHitT_x + 50)))
+				if((sum_x >= posTankPlayerHitT_x) && (sum_x <= (posTankPlayerHitT_x + 50)) && (sum_y >= posTankPlayerHitT_y && sum_y <= (posTankPlayerHitT_y + 50)))
 				{
 					break;
 				}
@@ -3782,19 +3782,89 @@ function controlRandomComputer()
 	{
 		keyPressedComputer = 0;
 	}
-	randomRotationControl = (1 + Math.floor(Math.random() * 30));
-	if(randomRotationControl < 14)
+	
+	positionComputerTank = $('#computerTank').position();
+	positionPlayerTank = $('#playerTank').position();
+	posComputerMove_x = parseInt(positionComputerTank.left);
+	posComputerMove_y = parseInt(positionComputerTank.top);
+	posPlayerMove_x = parseInt(positionPlayerTank.left);
+	posPlayerMove_y = parseInt(positionPlayerTank.top);
+	if((posPlayerMove_x == posComputerMove_x) || (posPlayerMove_y == posComputerMove_y))
 	{
-		keyRotateLeftComputer = 1;		
+		if(posComputerMove_x == posPlayerMove_x)
+		{
+			if(posPlayerMove_y > posComputerMove_y)
+			{
+				angleToPoint = 270;
+				//degreeToReachNeg = -90;
+			}
+			else
+			{
+				angleToPoint = 90;
+				//degreeToReachNeg = -270;
+			}
+		}
+		else
+		{
+			if(posComputerMove_y == posPlayerMove_y)
+			{
+				if(posPlayerMove_x < posComputerMove_x)
+				{
+					angleToPoint = 360;
+					//degreeToReachNeg = -360;
+				}
+				else
+				{
+					angleToPoint = 180;
+					//degreeToReachNeg = -180;
+				}
+			}
+		}
+		
 	}
-	if(randomRotationControl > 13 && randomRotationControl < 17)
+	else
 	{
-		keyRotateLeftComputer = 0;
-		keyRotateRightComputer = 0;
-	}
-	if(randomRotationControl > 16)
-	{
-		keyRotateRightComputer = 1;		
+		//Aca controlo que este en alguno de los cuatro cuadrantes que podria estar
+		if((posComputerMove_x < posPlayerMove_x) && (posComputerMove_y < posPlayerMove_y))
+		{
+			sideC = posPlayerMove_x - posComputerMove_x;
+			sideA = posPlayerMove_y - posComputerMove_y;
+			hypotenuse = Math.sqrt((sideC * sideC) + (sideA * sideA));
+			A = Math.acos(((hypotenuse * hypotenuse) + (sideC * sideC) - (sideA * sideA)) / (2 * hypotenuse * sideC));
+			AInDegrees = ((180 * A) / Math.PI);
+			computerAngle = (180 - (AInDegrees + 90));
+			angleToPoint = Math.round((180 + (90 - computerAngle)));
+		}
+		if((posComputerMove_x > posPlayerMove_x) && (posComputerMove_y < posPlayerMove_y))
+		{
+			sideC = posComputerMove_x - posPlayerMove_x;
+			sideA = posPlayerMove_y - posComputerMove_y;
+			hypotenuse = Math.sqrt((sideC * sideC) + (sideA * sideA));
+			A = Math.acos(((hypotenuse * hypotenuse) + (sideC * sideC) - (sideA * sideA)) / (2 * hypotenuse * sideC));
+			AInDegrees = ((180 * A) / Math.PI);
+			computerAngle = (180 - (AInDegrees + 90));
+			angleToPoint = Math.round((270 + computerAngle));
+		}
+		if((posComputerMove_x > posPlayerMove_x) && (posComputerMove_y > posPlayerMove_y))
+		{
+			sideC = posComputerMove_x - posPlayerMove_x;
+			sideA = posComputerMove_y - posPlayerMove_y;
+			hypotenuse = Math.sqrt((sideC * sideC) + (sideA * sideA));
+			A = Math.acos(((hypotenuse * hypotenuse) + (sideC * sideC) - (sideA * sideA)) / (2 * hypotenuse * sideC));
+			AInDegrees = ((180 * A) / Math.PI);
+			computerAngle = (0 + AInDegrees);
+			angleToPoint = Math.round(computerAngle);
+		}
+		if((posComputerMove_x < posPlayerMove_x) && (posComputerMove_y > posPlayerMove_y))
+		{
+			sideC = posPlayerMove_x - posComputerMove_x;
+			sideA = posComputerMove_y - posPlayerMove_y;
+			hypotenuse = Math.sqrt((sideC * sideC) + (sideA * sideA));
+			A = Math.acos(((hypotenuse * hypotenuse) + (sideC * sideC) - (sideA * sideA)) / (2 * hypotenuse * sideC));
+			AInDegrees = ((180 * A) / Math.PI);
+			computerAngle = (90 - AInDegrees);
+			angleToPoint = Math.round(90 + computerAngle);
+		}
 	}
 	if(winner != 2){
 		if(shotComputer < 5)
@@ -3805,7 +3875,7 @@ function controlRandomComputer()
 				shotComputer++;
 				cantOfShots++;
 				prevHtml = $('#court').html();
-				positionComputerTank = $('#computerTank').position();			
+				positionComputerTank = $('#computerTank').position();
 				posComputerBall = getLeftAndTopComputer(rotationComputer);
 				var vPosComputerBall = posComputerBall.split('/--/');
 				posComputerBall_x = positionComputerTank.left + parseInt(vPosComputerBall[0]);
@@ -3816,6 +3886,51 @@ function controlRandomComputer()
 			}
 		}
 	}
+}
+
+function controlToTurn()
+{
+	angleToString = angleToPoint.toString();
+	lastChar = parseInt(angleToString.charAt(angleToString.length - 1));
+	if(lastChar != 0)
+	{
+		resultOfDivision = ((Math.floor(angleToPoint / 5))*5) + 5;
+	}
+	else
+	{
+		resultOfDivision = ((Math.floor(angleToPoint / 5))*5);
+	}
+	
+	if(resultOfDivision > 360)
+	{
+		resultOfDivision = 0;
+	}
+	
+	if(rotationComputer <= 0)
+	{
+		controlRotation = rotationComputer + 360;
+	}
+	else
+	{
+		controlRotation = rotationComputer;
+	}
+	
+	if(resultOfDivision == controlRotation)
+	{
+		keyRotateRightComputer = 0;
+		keyRotateLeftComputer = 0;
+	}
+	if(resultOfDivision < controlRotation)
+	{
+		keyRotateLeftComputer = 1;
+		keyRotateRightComputer = 0;
+	}
+	if(resultOfDivision > controlRotation)
+	{
+		keyRotateLeftComputer = 0;
+		keyRotateRightComputer = 1;
+	}
+	
 }
 
 //Controla que alguno gane
@@ -3902,16 +4017,23 @@ $(document).ready(function(){
 		if(winner == 0)
 		{
 			controlRandomComputer();
-			
+			controlToTurn();
 			if(keyPressedComputer == 1)
 			{
 				sideMoveComputerControl(rotationComputer);
-			}		
+				if(keyRotateRightComputer == 1 || keyRotateLeftComputer == 1)
+				{
+					rotateComputer();
+					rotateComputer();
+				}
+			}
+			/*
 			if(keyRotateRightComputer == 1 || keyRotateLeftComputer == 1)
 			{
 				rotateComputer();
 				rotateComputer();
 			}
+			*/
 		}
 		if(winner == 2)
 		{
